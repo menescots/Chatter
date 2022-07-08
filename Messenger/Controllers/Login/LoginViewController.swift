@@ -59,6 +59,17 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    private let pushToRegisterButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Register", for: .normal)
+        button.backgroundColor = .systemPink
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        return button
+    }()
+    
     private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "message")
@@ -70,18 +81,15 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register",
-                                                            style: .plain,
-                                                            target: self,
-                                                            action: #selector(didTapRegisterButton))
         navigationController?.navigationBar.tintColor = UIColor.systemPink
         
         // add target
         logInButton.addTarget(self,
                               action: #selector(loginButtonTapped),
                               for: .touchUpInside)
-        
+        pushToRegisterButton.addTarget(self,
+                                       action: #selector(pushToRegisterButtonTapped),
+                                       for: .touchUpInside)
         emailField.delegate = self
         passwordField.delegate = self
         
@@ -91,6 +99,7 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(logInButton)
+        scrollView.addSubview(pushToRegisterButton)
     }
     
     override func viewDidLayoutSubviews() {
@@ -116,6 +125,12 @@ class LoginViewController: UIViewController {
                                  y: passwordField.bottom+10,
                                  width: scrollView.width-60,
                                  height: 52)
+        
+        pushToRegisterButton.frame = CGRect(x: 30,
+                                 y: logInButton.bottom+10,
+                                 width: scrollView.width-60,
+                                 height: 52)
+
     }
     
     @objc func loginButtonTapped() {
@@ -130,6 +145,11 @@ class LoginViewController: UIViewController {
             // firebase login
     }
     
+    @objc func pushToRegisterButtonTapped() {
+        let vc = RegisterViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func allertUserLoginError() {
         let alert = UIAlertController(title: "Incorrect email or password",
                                       message: "Please double-check and try again",
@@ -138,11 +158,6 @@ class LoginViewController: UIViewController {
                                       style: .cancel))
         
         present(alert, animated: true)
-    }
-    
-    @objc private func didTapRegisterButton() {
-        let vc = RegisterViewController()
-        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
