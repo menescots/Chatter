@@ -12,7 +12,6 @@ class ConversationsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
-        
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -24,12 +23,12 @@ class ConversationsViewController: UIViewController {
             let vc = LoginViewController()
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen
+            nav.navigationBar.tintColor = .link
             
-            let navigationBarAppearance = UINavigationBarAppearance()
-            navigationBarAppearance.configureWithDefaultBackground()
-                UINavigationBar.appearance().standardAppearance = navigationBarAppearance
-                UINavigationBar.appearance().compactAppearance = navigationBarAppearance
-                UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+//            navigationBarAppearance.configureWithDefaultBackground()
+//                UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+//                UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+//                UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
             present(nav, animated: true)
         }
     }

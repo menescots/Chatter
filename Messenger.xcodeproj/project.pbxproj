@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E22DF0C28781BC300C7A91C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22DF0B28781BC300C7A91C /* Extensions.swift */; };
 		7E8F6A34287703AE0025F3D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A33287703AE0025F3D8 /* AppDelegate.swift */; };
 		7E8F6A36287703AE0025F3D8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A35287703AE0025F3D8 /* SceneDelegate.swift */; };
 		7E8F6A38287703AF0025F3D8 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A37287703AF0025F3D8 /* ConversationsViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7E22DF0B28781BC300C7A91C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7E8F6A30287703AE0025F3D8 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E8F6A33287703AE0025F3D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E8F6A35287703AE0025F3D8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			children = (
 				7E8F6A33287703AE0025F3D8 /* AppDelegate.swift */,
 				7E8F6A35287703AE0025F3D8 /* SceneDelegate.swift */,
+				7E22DF0B28781BC300C7A91C /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				7E8F6A5628770A6B0025F3D8 /* NewConversationViewController.swift in Sources */,
 				7E8F6A38287703AF0025F3D8 /* ConversationsViewController.swift in Sources */,
 				7E8F6A34287703AE0025F3D8 /* AppDelegate.swift in Sources */,
+				7E22DF0C28781BC300C7A91C /* Extensions.swift in Sources */,
 				7E8F6A36287703AE0025F3D8 /* SceneDelegate.swift in Sources */,
 				7E8F6A5828770A870025F3D8 /* ProfileViewController.swift in Sources */,
 				7E8F6A54287709080025F3D8 /* ViedoPlayerViewController.swift in Sources */,
