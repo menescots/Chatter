@@ -1,5 +1,5 @@
 //
-//  LoginViewController.swift
+//  RegisterViewController.swift
 //  Messenger
 //
 //  Created by Agata Menes on 07/07/2022.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class RegisterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = .green
         // Do any additional setup after loading the view.
     }
     

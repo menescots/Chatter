@@ -49,6 +49,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7E22DF0A2877118700C7A91C /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				7E8F6A4D287708C00025F3D8 /* LoginViewController.swift */,
+				7E8F6A4F287708D70025F3D8 /* RegisterViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		7E8F6A27287703AE0025F3D8 = {
 			isa = PBXGroup;
 			children = (
@@ -81,9 +90,8 @@
 		7E8F6A47287706D40025F3D8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7E22DF0A2877118700C7A91C /* Login */,
 				7E8F6A37287703AF0025F3D8 /* ConversationsViewController.swift */,
-				7E8F6A4D287708C00025F3D8 /* LoginViewController.swift */,
-				7E8F6A4F287708D70025F3D8 /* RegisterViewController.swift */,
 				7E8F6A51287708F70025F3D8 /* PhotoViewerViewController.swift */,
 				7E8F6A53287709080025F3D8 /* ViedoPlayerViewController.swift */,
 				7E8F6A5528770A6B0025F3D8 /* NewConversationViewController.swift */,
