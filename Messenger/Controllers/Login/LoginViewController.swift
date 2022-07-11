@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
 
@@ -13,6 +14,21 @@ class LoginViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
         return scrollView
+    }()
+    
+    private let passwordSwitch: UISwitch = {
+       let passwordSwitch = UISwitch()
+        passwordSwitch.isOn = false
+        passwordSwitch.onTintColor = .lightGray
+        return passwordSwitch
+    }()
+    
+    private let showPasswordLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Tap to show password"
+        label.font = .systemFont(ofSize: 10, weight: .semibold)
+        label.textColor = .systemPink
+        return label
     }()
     
     private let emailField: UITextField = {
@@ -90,6 +106,9 @@ class LoginViewController: UIViewController {
         pushToRegisterButton.addTarget(self,
                                        action: #selector(pushToRegisterButtonTapped),
                                        for: .touchUpInside)
+        passwordSwitch.addTarget(self,
+                                 action: #selector(passwordSwitchToggled),
+                                 for: .touchUpInside)
         emailField.delegate = self
         passwordField.delegate = self
         
@@ -100,6 +119,8 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(passwordField)
         scrollView.addSubview(logInButton)
         scrollView.addSubview(pushToRegisterButton)
+        scrollView.addSubview(passwordSwitch)
+        scrollView.addSubview(showPasswordLabel)
     }
     
     override func viewDidLayoutSubviews() {
@@ -121,8 +142,16 @@ class LoginViewController: UIViewController {
                                   width: scrollView.width-60,
                                  height: 52)
         
-        logInButton.frame = CGRect(x: 30,
+        passwordSwitch.frame = CGRect(x: 30,
                                  y: passwordField.bottom+10,
+                                 width: scrollView.width-60,
+                                 height: 52)
+        showPasswordLabel.frame = CGRect(x: passwordSwitch.right+10,
+                                 y: passwordField.bottom,
+                                 width: scrollView.width-60,
+                                 height: 52)
+        logInButton.frame = CGRect(x: 30,
+                                 y: passwordSwitch.bottom+10,
                                  width: scrollView.width-60,
                                  height: 52)
         
@@ -131,6 +160,16 @@ class LoginViewController: UIViewController {
                                  width: scrollView.width-60,
                                  height: 52)
 
+    }
+    
+    @objc func passwordSwitchToggled() {
+        if passwordSwitch.isOn {
+            showPasswordLabel.text = "Hide password"
+            passwordField.isSecureTextEntry = false
+        } else {
+            showPasswordLabel.text = "Show password"
+            passwordField.isSecureTextEntry = true
+        }
     }
     
     @objc func loginButtonTapped() {
@@ -143,6 +182,20 @@ class LoginViewController: UIViewController {
                 return
         }
             // firebase login
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] authResult, error in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            guard let result = authResult, error == nil else {
+               print("failed to log in with email: \(email)")
+                return
+            }
+            
+            let user = result.user
+            print("Logged in: \(user)")
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+        })
     }
     
     @objc func pushToRegisterButtonTapped() {

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 class RegisterViewController: UIViewController {
 
     private let scrollView: UIScrollView = {
@@ -97,6 +97,22 @@ class RegisterViewController: UIViewController {
         label.textColor = .systemPink
         return label
     }()
+    
+    private let passwordSwitch: UISwitch = {
+       let passwordSwitch = UISwitch()
+        passwordSwitch.isOn = false
+        passwordSwitch.onTintColor = .lightGray
+        return passwordSwitch
+    }()
+    
+    private let showPasswordLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Tap to show password"
+        label.font = .systemFont(ofSize: 10, weight: .semibold)
+        label.textColor = .systemPink
+        return label
+    }()
+    
     private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "person.crop.circle.fill.badge.plus")
@@ -113,6 +129,9 @@ class RegisterViewController: UIViewController {
         
         
         // add target
+        passwordSwitch.addTarget(self,
+                                 action: #selector(passwordSwitchToggled),
+                                 for: .touchUpInside)
         registerInButton.addTarget(self,
                               action: #selector(loginButtonTapped),
                               for: .touchUpInside)
@@ -129,6 +148,8 @@ class RegisterViewController: UIViewController {
         scrollView.addSubview(firstNameField)
         scrollView.addSubview(lastNameField)
         scrollView.addSubview(photoInfoLabel)
+        scrollView.addSubview(passwordSwitch)
+        scrollView.addSubview(showPasswordLabel)
         
         imageView.isUserInteractionEnabled = true
         scrollView.isUserInteractionEnabled = true
@@ -142,7 +163,17 @@ class RegisterViewController: UIViewController {
     @objc func didTapChangeProfilePic() {
         presentPhotoActionSheet()
     }
-    
+
+        @objc func passwordSwitchToggled() {
+            if passwordSwitch.isOn {
+                showPasswordLabel.text = "Hide password"
+                passwordField.isSecureTextEntry = false
+            } else {
+                showPasswordLabel.text = "Show password"
+                passwordField.isSecureTextEntry = true
+            }
+        }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollView.frame = view.bounds
@@ -179,9 +210,16 @@ class RegisterViewController: UIViewController {
                                  y: emailField.bottom+10,
                                   width: scrollView.width-60,
                                  height: 52)
-        
-        registerInButton.frame = CGRect(x: 30,
+        passwordSwitch.frame = CGRect(x: 30,
                                  y: passwordField.bottom+10,
+                                 width: scrollView.width-60,
+                                 height: 52)
+        showPasswordLabel.frame = CGRect(x: passwordSwitch.right+10,
+                                 y: passwordField.bottom,
+                                 width: scrollView.width-60,
+                                 height: 52)
+        registerInButton.frame = CGRect(x: 30,
+                                 y: passwordSwitch.bottom+10,
                                  width: scrollView.width-60,
                                  height: 52)
     }
@@ -205,10 +243,41 @@ class RegisterViewController: UIViewController {
                 return
         }
             // firebase login
+        
+        DatabaseManager.shared.userExists(with: email, completion: { [weak self] exists in // check if user is in or not
+            guard let strongSelf = self else {
+                return
+            }
+            
+            guard !exists else {
+                // user already exists
+                strongSelf.allertUserLoginError(message: "User with that email already exists.")
+                return
+            }
+            
+            
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult, error in
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                guard authResult != nil, error == nil else {
+                    print("Error creating user")
+                    return
+                }
+                
+                DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName,
+                                                                    lastName: lastName, // database entry
+                                                                    emailAdress: email))
+                
+                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            })
+            
+        })
     }
     
-    func allertUserLoginError() {
-        let alert = UIAlertController(title: "Please enter all information to create an account",
+    func allertUserLoginError(message: String = "Please enter all information to create an account") {
+        let alert = UIAlertController(title: message,
                                       message: nil,
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss",
