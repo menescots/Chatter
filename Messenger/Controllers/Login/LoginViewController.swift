@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
         field.returnKeyType = .continue // when return is clicked it jumps to password field
         field.layer.cornerRadius = 12
         field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.systemPink.cgColor
+        field.layer.borderColor = UIColor.black.cgColor
         field.placeholder = "Enter email adress..."
         
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0)) //
@@ -38,7 +38,7 @@ class LoginViewController: UIViewController {
         field.returnKeyType = .done // when return is clicked it jumps to password field
         field.layer.cornerRadius = 12
         field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.systemPink.cgColor
+        field.layer.borderColor = UIColor.black.cgColor
         field.placeholder = "Password..."
         field.isSecureTextEntry = true
         

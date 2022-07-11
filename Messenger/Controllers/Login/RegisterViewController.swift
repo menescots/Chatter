@@ -22,7 +22,7 @@ class RegisterViewController: UIViewController {
         field.returnKeyType = .continue
         field.layer.cornerRadius = 12
         field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.systemPink.cgColor
+        field.layer.borderColor = UIColor.black.cgColor
         field.placeholder = "First name..."
         
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0)) //
@@ -38,7 +38,7 @@ class RegisterViewController: UIViewController {
         field.returnKeyType = .continue
         field.layer.cornerRadius = 12
         field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.systemPink.cgColor
+        field.layer.borderColor = UIColor.black.cgColor
         field.placeholder = "Last name..."
         
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0)) //
@@ -53,7 +53,7 @@ class RegisterViewController: UIViewController {
         field.returnKeyType = .continue // when return is clicked it jumps to password field
         field.layer.cornerRadius = 12
         field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.systemPink.cgColor
+        field.layer.borderColor = UIColor.black.cgColor
         field.placeholder = "Enter email adress..."
         
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0)) //
@@ -69,7 +69,7 @@ class RegisterViewController: UIViewController {
         field.returnKeyType = .done // when return is clicked it jumps to password field
         field.layer.cornerRadius = 12
         field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.systemPink.cgColor
+        field.layer.borderColor = UIColor.black.cgColor
         field.placeholder = "Password..."
         field.isSecureTextEntry = true
         
@@ -90,11 +90,19 @@ class RegisterViewController: UIViewController {
         return button
     }()
     
+    private let photoInfoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Tap icon to chose profile picture"
+        label.font = .systemFont(ofSize: 10, weight: .semibold)
+        label.textColor = .systemPink
+        return label
+    }()
     private var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person")
+        imageView.image = UIImage(systemName: "person.crop.circle.fill.badge.plus")
         imageView.tintColor = .systemPink
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
@@ -120,6 +128,7 @@ class RegisterViewController: UIViewController {
         scrollView.addSubview(registerInButton)
         scrollView.addSubview(firstNameField)
         scrollView.addSubview(lastNameField)
+        scrollView.addSubview(photoInfoLabel)
         
         imageView.isUserInteractionEnabled = true
         scrollView.isUserInteractionEnabled = true
@@ -131,7 +140,7 @@ class RegisterViewController: UIViewController {
     }
     
     @objc func didTapChangeProfilePic() {
-        print("tapped picture")
+        presentPhotoActionSheet()
     }
     
     override func viewDidLayoutSubviews() {
@@ -142,8 +151,17 @@ class RegisterViewController: UIViewController {
                                  y: 40,
                                  width: size,
                                  height: size)
+        
+
+        photoInfoLabel.frame = CGRect(x: (scrollView.width-size)/2,
+                                 y: imageView.bottom,
+                                  width: scrollView.width,
+                                 height: 52)
+        photoInfoLabel.center.x = self.view.center.x
+        photoInfoLabel.textAlignment = .center
+        
         firstNameField.frame = CGRect(x: 30,
-                                 y: imageView.bottom+50,
+                                 y: photoInfoLabel.bottom+10,
                                   width: scrollView.width-60,
                                  height: 52)
         
@@ -217,6 +235,62 @@ extension RegisterViewController: UITextFieldDelegate {
         }
         
         return true
+    }
+}
+
+extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate { // selecting photo from library or taking new
+    
+    func presentPhotoActionSheet() {
+        let ac = UIAlertController(title: "Profile picture",
+                                   message: "Choose a method to add profile picture",
+                                   preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "Cancel",
+                                   style: .cancel,
+                                   handler: nil))
+        ac.addAction(UIAlertAction(title: "Take Photo",
+                                   style: .default,
+                                   handler: { [weak self] _ in
+            
+                                        self?.presentCamera()
+        }))
+        ac.addAction(UIAlertAction(title: "Chose Photo",
+                                   style: .default,
+                                   handler: { [weak self] _ in
+            
+                                        self?.presentPhotoPicker()
+        }))
+        present(ac, animated: true)
+    }
+    
+    func presentCamera()  {
+        let vc = UIImagePickerController()
+        vc.sourceType = .camera
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+    }
+    
+    func presentPhotoPicker() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            return
+        } //chosen pic
+
+        self.imageView.image = selectedImage
+    
     }
 }
 
