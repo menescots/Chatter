@@ -26,7 +26,10 @@ extension DatabaseManager {
         
         //Escaping Closure : An escaping closure is a closure that’s called after the function it was passed to returns. In other words, it outlives the function it was passed to.
         
-        database.child(email).observeSingleEvent(of: .value,
+        var safeEmail = email.replacingOccurrences(of: ".", with: "_")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "_")
+        
+        database.child(safeEmail).observeSingleEvent(of: .value,
                                                  with: { snapshot in
             guard snapshot.value as? String != nil else {
                 completion(false)
@@ -41,7 +44,7 @@ extension DatabaseManager {
     
     /// inserts new user to database
     public func insertUser(with user: ChatAppUser) {
-        database.child(user.emailAdress).setValue([ // key of user is email
+        database.child(user.safeEmail).setValue([ // key of user is email
             "first_name": user.firstName,
             "last_name": user.lastName
         ])
@@ -52,5 +55,11 @@ struct ChatAppUser {
     let firstName: String
     let lastName: String
     let emailAdress: String
+    
+    var safeEmail: String {
+        var safeEmail = emailAdress.replacingOccurrences(of: ".", with: "_")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "_")
+        return safeEmail
+    }
    // let profilePicutreUrl: String
 }
