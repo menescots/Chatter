@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
 
@@ -94,6 +95,12 @@ class LoginViewController: UIViewController {
         return imageView
     }()
     
+    private var fbLoginButton: FBLoginButton = {
+        let button = FBLoginButton()
+        button.layer.cornerRadius = 20
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -111,6 +118,7 @@ class LoginViewController: UIViewController {
                                  for: .touchUpInside)
         emailField.delegate = self
         passwordField.delegate = self
+        fbLoginButton.delegate = self
         
         // add subviews
         view.addSubview(scrollView)
@@ -121,6 +129,7 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(pushToRegisterButton)
         scrollView.addSubview(passwordSwitch)
         scrollView.addSubview(showPasswordLabel)
+        scrollView.addSubview(fbLoginButton)
     }
     
     override func viewDidLayoutSubviews() {
@@ -154,11 +163,15 @@ class LoginViewController: UIViewController {
                                  y: passwordSwitch.bottom+10,
                                  width: scrollView.width-60,
                                  height: 52)
-        
         pushToRegisterButton.frame = CGRect(x: 30,
                                  y: logInButton.bottom+10,
                                  width: scrollView.width-60,
                                  height: 52)
+        
+        fbLoginButton.frame = CGRect(x: 30,
+                                   y: pushToRegisterButton.bottom+30,
+                                   width: scrollView.width-60,
+                                   height: 52)
 
     }
     
@@ -225,5 +238,23 @@ extension LoginViewController: UITextFieldDelegate {
         }
         
         return true
+    }
+}
+
+extension LoginViewController: LoginButtonDelegate {
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        guard let token = result?.token?.tokenString else {
+            print("user failder to log in with facebook")
+            return
+        }
+        let credential = FacebookAuthProvider.credential(withAccessToken: token)
+        
+        FirebaseAuth.Auth.auth().signIn(with: credential, completion: { authResult, error in
+            
+        })
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        //no operation
     }
 }
