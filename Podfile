@@ -8,5 +8,6 @@ pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'FBSDKLoginKit'
-
+pod 'FBSDKCoreKit'
+pod 'FBSDKLoginKit'
 end
