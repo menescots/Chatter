@@ -4,11 +4,13 @@
 //
 //  Created by Agata Menes on 07/07/2022.
 //
-
+import JGProgressHUD
 import UIKit
 import FirebaseAuth
 class RegisterViewController: UIViewController {
 
+    private let spinner = JGProgressHUD(style: .dark)
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
@@ -242,11 +244,18 @@ class RegisterViewController: UIViewController {
                 allertUserLoginError()
                 return
         }
+        
+        spinner.show(in: view)
+        
             // firebase login
         
         DatabaseManager.shared.userExists(with: email, completion: { [weak self] exists in // check if user is in or not
             guard let strongSelf = self else {
                 return
+            }
+            
+            DispatchQueue.main.async {
+                self?.spinner.dismiss(animated: true)
             }
             
             guard !exists else {
