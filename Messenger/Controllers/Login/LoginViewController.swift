@@ -282,9 +282,16 @@ extension LoginViewController: LoginButtonDelegate {
             let lastName = nameComponents[1]
             
             DatabaseManager.shared.userExists(with: email, completion: { exists in
-                DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName,
-                                                                    lastName: lastName,
-                                                                    emailAdress: email))
+                if !exists {
+                    let chatUser = ChatAppUser(firstName: firstName,
+                                           lastName: lastName,
+                                           emailAdress: email)
+                
+                DatabaseManager.shared.insertUser(with: chatUser, completion: { success in
+                    if success {
+                        // upload image
+                    }
+                })}
             })
             
             let credential = FacebookAuthProvider.credential(withAccessToken: token)
