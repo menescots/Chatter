@@ -68,5 +68,10 @@ struct ChatAppUser {
         safeEmail = safeEmail.replacingOccurrences(of: "@", with: "_")
         return safeEmail
     }
-   // let profilePicutreUrl: String
+    
+    var profilePicutreFileName: String {
+        //agatamenes_gmail_com_profile_picture.png
+        return "\(safeEmail)_profile_picture.png"
+    }
+    
 }

@@ -117,7 +117,7 @@ class RegisterViewController: UIViewController {
     
     private var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person.crop.circle.fill.badge.plus")
+        imageView.image = UIImage(systemName: "person.crop.circle")
         imageView.tintColor = .systemPink
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
@@ -184,7 +184,7 @@ class RegisterViewController: UIViewController {
                                  y: 40,
                                  width: size,
                                  height: size)
-        
+        imageView.layer.cornerRadius = imageView.frame.height/2
 
         photoInfoLabel.frame = CGRect(x: (scrollView.width-size)/2,
                                  y: imageView.bottom,
@@ -281,6 +281,21 @@ class RegisterViewController: UIViewController {
                 DatabaseManager.shared.insertUser(with: chatUser, completion: { success in
                     if success {
                         // upload image
+                        guard let image = strongSelf.imageView.image,
+                              let data = image.pngData() else {
+                            return
+                        }
+                        let filename = chatUser.profilePicutreFileName
+                        StorageManager.shared.uploadProfilePicture(with: data, fileName: filename, completion: { result in
+                            switch result {
+                            case .success(let downloadUrl):
+                                UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
+                                print(downloadUrl)
+                    
+                            case .failure(let error):
+                                print("Storage manager error: \(error)")
+                            }
+                        })
                     }
                 })
                 

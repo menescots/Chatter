@@ -193,8 +193,8 @@ class LoginViewController: UIViewController {
         
         guard let email = emailField.text, let password = passwordField.text,
               !email.isEmpty, !password.isEmpty, password.count >= 6 else {
-                allertUserLoginError()
-                return
+            allertUserLoginError()
+            return
         }
         
         spinner.show(in: view)
@@ -258,7 +258,8 @@ extension LoginViewController: LoginButtonDelegate {
             return
         }
         let facebookRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
-                                                         parameters: ["fields": "email, name"],
+                                                         parameters: ["fields":
+                                                                        "email, first_name, last_name, picture.type(large)"],
                                                          tokenString: token,
                                                          version: nil,
                                                          httpMethod: .get)
@@ -269,17 +270,18 @@ extension LoginViewController: LoginButtonDelegate {
                 print("Failed to make facebook graph reqquest")
                 return
             }
-            // mistake
-            guard let userName = result["name"] as? String,
-                  let email = result["email"] as? String else {
+           
+            print(result)
+
+            guard let firstName = result["first_name"] as? String,
+                  let lastName = result["last_name"] as? String,
+                  let email = result["email"] as? String,
+                  let picture = result["picture"] as? [String: Any],
+                  let data = picture["data"] as? [String: Any],
+                  let pictureUrl = data["url"] as? String else {
                 print("failed to get email and name from fb results print \(result)")
                 return
             }
-            let nameComponents = userName.components(separatedBy: " ")
-            guard nameComponents.count == 2 else { return }
-            
-            let firstName = nameComponents[0]
-            let lastName = nameComponents[1]
             
             DatabaseManager.shared.userExists(with: email, completion: { exists in
                 if !exists {
@@ -287,11 +289,35 @@ extension LoginViewController: LoginButtonDelegate {
                                            lastName: lastName,
                                            emailAdress: email)
                 
-                DatabaseManager.shared.insertUser(with: chatUser, completion: { success in
-                    if success {
-                        // upload image
-                    }
-                })}
+                    DatabaseManager.shared.insertUser(with: chatUser, completion: { success in
+                        if success {
+                            guard let url = URL(string: pictureUrl) else { return }
+                            print("Downloading bits from facebook image")
+                           let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
+                                guard let data = data else {
+                                    print("Failed to download data from facebook")
+                                    return
+                                }
+                                
+                                print("got data from fb, uploading..")
+                                
+                                // upload image
+                                let filename = chatUser.profilePicutreFileName
+                                StorageManager.shared.uploadProfilePicture(with: data, fileName: filename, completion: { result in
+                                    switch result {
+                                    case .success(let downloadUrl):
+                                        UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
+                                        print(downloadUrl)
+                                        
+                                    case .failure(let error):
+                                        print("Storage manager error: \(error)")
+                                    }
+                                })
+                                
+                            })
+                            task.resume()
+                        }
+                    })}
             })
             
             let credential = FacebookAuthProvider.credential(withAccessToken: token)
@@ -314,6 +340,6 @@ extension LoginViewController: LoginButtonDelegate {
     
     func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
         
-
+        
     }
 }

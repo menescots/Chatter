@@ -50,7 +50,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             
             guard let strongSelf = self else { return }
             
-            LoginManager().logOut()
+            FBSDKLoginKit.LoginManager().logOut()
             
             do {
                 try FirebaseAuth.Auth.auth().signOut()
