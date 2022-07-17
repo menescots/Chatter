@@ -55,7 +55,6 @@ class ProfileViewController: UIViewController {
                 print("failed to download URL \(error)")
             }
         })
-        
         return headerView
     }
     
