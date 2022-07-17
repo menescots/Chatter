@@ -215,6 +215,9 @@ class LoginViewController: UIViewController {
             }
             
             let user = result.user
+            // saving user email
+            UserDefaults.standard.set(email, forKey: "email")
+            
             print("Logged in: \(user)")
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
         })
@@ -282,6 +285,9 @@ extension LoginViewController: LoginButtonDelegate {
                 print("failed to get email and name from fb results print \(result)")
                 return
             }
+            //saving email form facebook
+            
+            UserDefaults.standard.set(email, forKey: "email")
             
             DatabaseManager.shared.userExists(with: email, completion: { exists in
                 if !exists {

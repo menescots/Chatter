@@ -351,7 +351,7 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
             
                                         self?.presentCamera()
         }))
-        ac.addAction(UIAlertAction(title: "Chose Photo",
+        ac.addAction(UIAlertAction(title: "Choose Photo",
                                    style: .default,
                                    handler: { [weak self] _ in
             

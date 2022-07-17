@@ -91,18 +91,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Rbq-es-YsQ">
-                                <rect key="frame" x="0.0" y="185" width="414" height="628"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Rbq-es-YsQ">
+                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Zaf-fl-MYK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="leading" secondItem="Zaf-fl-MYK" secondAttribute="leading" id="5bx-6o-m3b"/>
-                            <constraint firstItem="Zaf-fl-MYK" firstAttribute="trailing" secondItem="Rbq-es-YsQ" secondAttribute="trailing" id="GAe-N5-qb5"/>
-                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="top" secondItem="Zaf-fl-MYK" secondAttribute="top" constant="45" id="TXm-di-6Dp"/>
-                            <constraint firstItem="Zaf-fl-MYK" firstAttribute="bottom" secondItem="Rbq-es-YsQ" secondAttribute="bottom" id="ZSp-Oi-oLQ"/>
+                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="top" secondItem="Zaf-fl-MYK" secondAttribute="top" id="7af-sc-shI"/>
+                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="leading" secondItem="Zaf-fl-MYK" secondAttribute="leading" id="YMB-Ev-jo5"/>
+                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="bottom" secondItem="Zaf-fl-MYK" secondAttribute="bottom" id="YtM-0i-l4q"/>
+                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="centerX" secondItem="wee-EK-3vs" secondAttribute="centerX" id="itv-eC-uXe"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="SWv-Ok-4TM"/>

@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseStorage
 import SwiftUI
+import MapKit
 
 final class StorageManager {
     
@@ -45,4 +46,17 @@ final class StorageManager {
         case failedToUplad
         case failedToGetDownloadUrl
     }
+    
+    public func downloadURL(for path: String, completion: @escaping (Result<URL, Error>) -> Void) {
+        let reference = storage.child(path)
+        
+        reference.downloadURL(completion: { url, error in
+            guard let url = url, error == nil else {
+                completion(.failure(StorageErrors.failedToGetDownloadUrl))
+                return
+            }
+            completion(.success(url))
+        })
+    }
+    
 }
