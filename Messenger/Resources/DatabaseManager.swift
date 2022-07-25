@@ -8,6 +8,8 @@
 import Foundation
 import FirebaseDatabase
 import RealmSwift
+import UIKit
+import CoreMedia
 
 final class DatabaseManager {
     
@@ -47,7 +49,6 @@ extension DatabaseManager {
         
     }
     
-    /// inserts new user to database
     public func insertUser(with user: ChatAppUser, completion: @escaping (Bool) -> Void) {
         database.child(user.safeEmail).setValue([ // key of user is email
             "first_name": user.firstName,
@@ -58,20 +59,7 @@ extension DatabaseManager {
                     completion(false)
                     return
                 }
-                /*
-                 users => [
-                    [
-                        "name":
-                        "safe_email:
-                    ],
-                 
-                    [
-                        "name":
-                        "safe_email:
-                    ]
-                 ]
-                 */
-                
+
                 self.database.child("users").observeSingleEvent(of: .value, with: { snapshot in
                     if var usersCollection = snapshot.value as? [[String: String]] {
                         
@@ -81,11 +69,11 @@ extension DatabaseManager {
                         ]
                         usersCollection.append(newUser)
                         
-                        self.database.child("users").setValue(usersCollection, withCompletionBlock: { error, _ in
-                            guard error == nil else {
-                                completion(false)
-                                return
-                            }
+                self.database.child("users").setValue(usersCollection, withCompletionBlock: { error, _ in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                        }
                             completion(true)
                         })
                         
@@ -114,16 +102,140 @@ extension DatabaseManager {
                 completion(.failure(DatabaseErrors.failedToFetch))
                 return
             }
-            
             completion(.success(value))
-            
         })
     }
     
     public enum DatabaseErrors: Error {
         case failedToFetch
     }
+}
+
+// MARK: - sending messages / conversations
+
+extension DatabaseManager {
     
+    /*
+     "coverID" {
+        "messages": [
+            {
+                "id": String,
+                "type": text, photo, video,
+                "content": String, photoURL, viedo,
+                "date": Date(),
+                "sender_email": String,
+                "isRead": True/False,
+            }
+        ]
+     }
+     
+        conversation => [
+            [
+                "conversation_id: "coverID"
+                "other_user_email:
+                    "latest_message": => {
+                        "date": Date()
+                        "lates_message": "message"
+                        "is_read: true/false
+            }
+        ]
+     ]
+     */
+    
+    public func createNewConversation(with otherUserEmail: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+            return
+        }
+        
+        let currentUserSafeEmail = DatabaseManager.safeEmail(emailAdress: currentUserEmail)
+        let referenceToCurrentUser = database.child("\(currentUserSafeEmail)")
+        referenceToCurrentUser.observeSingleEvent(of: .value, with: { snapshot in
+            guard var userNode = snapshot.value as? [String: Any] else {
+                completion(false)
+                print("user not found")
+                return
+            }
+            
+            let messageDate = firstMessage.sentDate
+            let messageDateAsString = ChatViewController.dateFormatter.string(from: messageDate)
+            var message = ""
+            
+            switch firstMessage.kind {
+            case .text(let messageText):
+                message = messageText
+            case .attributedText(_):
+                break
+            case .photo(_):
+                break
+            case .video(_):
+                break
+            case .location(_):
+                break
+            case .emoji(_):
+                break
+            case .audio(_):
+                break
+            case .contact(_):
+                break
+            case .linkPreview(_):
+                break
+            case .custom(_):
+                break
+            }
+            
+            let newConversationData: [String: Any] = [
+                "id": "conversation_\(firstMessage.messageId)",
+                "other_user_email": otherUserEmail,
+                "lastest_message": [
+                    "date": messageDateAsString,
+                    "message": message,
+                    "is_read:": false
+                ]
+            ]
+            
+            if var conversation = userNode["conversation"] as? [[String: Any]] {
+                //conversation array exists for current user
+                //you should append
+                
+                conversation.append(newConversationData)
+                userNode["conversation"] = conversation
+                
+                referenceToCurrentUser.setValue(userNode, withCompletionBlock: { error, _ in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    completion(true)
+                })
+            }
+            else {
+                //create array
+                userNode["conversation"] = [
+                    newConversationData
+                ]
+                
+                referenceToCurrentUser.setValue(userNode, withCompletionBlock: { error, _ in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    completion(true)
+                })
+            }
+        })
+    }
+    
+    public func getAllConversations(for email: String, completion: @escaping (Result<String, Error>) -> Void) {
+        
+    }
+    
+    public func getAllMessagesForConversation(with id: String, completion: @escaping (Result<String, Error>) -> Void) {
+        
+    }
+    
+    public func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void){
+        
+    }
 }
 
 struct ChatAppUser {
