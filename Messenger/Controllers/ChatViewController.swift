@@ -94,7 +94,7 @@ class ChatViewController: MessagesViewController {
                     self?.messagesCollectionView.reloadDataAndKeepOffset()
 
                     if shouldScrollToBottom {
-                        self?.messagesCollectionView.scrollToBottom()
+                        self?.messagesCollectionView.scrollToLastItem()
                     }
                 }
 
@@ -134,23 +134,36 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         let messageID = createMessageID() else {
             return
         }
-        print(text)
-        //send message
+
+        let message = Message(sender: selfSender,
+                              messageId: messageID,
+                              sentDate: Date(),
+                              kind: .text(text))
+        
         if isNewConversation {
-            let message = Message(sender: selfSender,
-                                  messageId: messageID,
-                                  sentDate: Date(),
-                                  kind: .text(text))
             //create conversation in db
-            DatabaseManager.shared.createNewConversation(with: otherUserEmail, name: self.title ?? "User", firstMessage: message, completion: { success in
+            DatabaseManager.shared.createNewConversation(with: otherUserEmail, name: self.title ?? "User", firstMessage: message, completion: { [weak self] success in
+                if success {
+                    print("message sent")
+                    self?.isNewConversation = false
+                } else {
+                    print("failed to send message")
+                    
+                }
+            })
+        } else {
+            // append to existing conversation data
+            guard let conversationId = conversationId,
+                  let name = self.title else {
+                return
+            }
+            DatabaseManager.shared.sendMessage(to: conversationId, name: name, newMessage: message, completion: { success in
                 if success {
                     print("message sent")
                 } else {
                     print("failed to send message")
                 }
             })
-        } else {
-            // append to existing conversation data
         }
     }
     

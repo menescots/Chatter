@@ -10,6 +10,7 @@ import FirebaseDatabase
 import RealmSwift
 import UIKit
 import CoreMedia
+import SwiftUI
 
 final class DatabaseManager {
     
@@ -27,7 +28,19 @@ final class DatabaseManager {
 // MARK: - account management
 
 extension DatabaseManager {
-    
+    public func getDataFor(path: String, completion: @escaping (Result<Any, Error>) -> Void){
+        self.database.child("\(path)").observeSingleEvent(of: .value, with: { snapshot in
+            guard let value = snapshot.value else {
+                completion(.failure(DatabaseErrors.failedToFetch))
+                return
+            }
+            completion(.success(value))
+        })
+        
+    }
+}
+
+extension DatabaseManager {
     public func userExists(with email: String,
                            completion: @escaping ((Bool) -> Void)) {
         // completion handlers stand for: Do stuff when things have been done
@@ -143,7 +156,8 @@ extension DatabaseManager {
      */
     
     public func createNewConversation(with otherUserEmail: String, name: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
-        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String,
+              let currentUserName = UserDefaults.standard.value(forKey: "name") as? String else {
             return
         }
         
@@ -200,7 +214,7 @@ extension DatabaseManager {
             let recipientNewConversationData: [String: Any] = [
                 "id": conversationID,
                 "other_user_email": currentUserSafeEmail,
-                "name": "self",
+                "name": currentUserName,
                 "lastest_message": [
                     "date": messageDateAsString,
                     "message": message,
@@ -378,8 +392,73 @@ extension DatabaseManager {
         })
     }
     
-    public func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void){
-        
+    public func sendMessage(to conversation: String, name: String, newMessage: Message, completion: @escaping (Bool) -> Void){
+        //TODO: add new message to messages
+        //TODO: update sender latest message
+        //TODO: update recipient latest message
+        self.database.child("\(conversation)/messages").observeSingleEvent(of: .value, with: { [weak self] snapshot in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            guard var currentMessages = snapshot.value as? [[String: Any]] else {
+                completion(false)
+                return
+            }
+            
+            let messageDate = newMessage.sentDate
+            let messageDateAsString = ChatViewController.dateFormatter.string(from: messageDate)
+            var message = ""
+            
+            switch newMessage.kind {
+            case .text(let messageText):
+                message = messageText
+            case .attributedText(_):
+                break
+            case .photo(_):
+                break
+            case .video(_):
+                break
+            case .location(_):
+                break
+            case .emoji(_):
+                break
+            case .audio(_):
+                break
+            case .contact(_):
+                break
+            case .linkPreview(_):
+                break
+            case .custom(_):
+                break
+            }
+            guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+                completion(false)
+                return
+            }
+            
+            let currentUserSafeEmail = DatabaseManager.safeEmail(emailAdress: currentUserEmail)
+            let messageId = newMessage.messageId
+            let safeMessageId = messageId.replacingOccurrences(of: "/", with: "_")
+            
+            let newMessageEntry: [String: Any] = [
+                "id": safeMessageId,
+                "type": newMessage.kind.messageKindString,
+                "content": message,
+                "date": messageDateAsString,
+                "sender_email": currentUserSafeEmail,
+                "is_read": false,
+                "name": name
+            ]
+            currentMessages.append(newMessageEntry)
+            strongSelf.database.child("\(conversation)/messages").setValue(currentMessages, withCompletionBlock: { error, _ in
+                guard error == nil else {
+                    completion(false)
+                    return
+                }
+                completion(true)
+            })
+        })
     }
 }
 

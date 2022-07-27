@@ -215,9 +215,23 @@ class LoginViewController: UIViewController {
             }
             
             let user = result.user
-            // saving user email
-            UserDefaults.standard.set(email, forKey: "email")
             
+            let currentUserSafeEmail = DatabaseManager.safeEmail(emailAdress: email)
+            DatabaseManager.shared.getDataFor(path: currentUserSafeEmail, completion: { [weak self] result in
+                switch result {
+                case .success(let data):
+                    guard let userData = data as? [String: Any],
+                          let firstName = userData["first_name"] as? String,
+                          let lastName = userData["last_name"] as? String else {
+                        return
+                    }
+                    UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
+                    
+                case .failure(let error):
+                    print("failed to read data with error: \(error)")
+                }
+            })
+            UserDefaults.standard.set(email, forKey: "email")
             print("Logged in: \(user)")
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
         })
@@ -273,8 +287,6 @@ extension LoginViewController: LoginButtonDelegate {
                 print("Failed to make facebook graph reqquest")
                 return
             }
-           
-            print(result)
 
             guard let firstName = result["first_name"] as? String,
                   let lastName = result["last_name"] as? String,
@@ -288,6 +300,7 @@ extension LoginViewController: LoginButtonDelegate {
             //saving email form facebook
             
             UserDefaults.standard.set(email, forKey: "email")
+            UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
             
             DatabaseManager.shared.userExists(with: email, completion: { exists in
                 if !exists {
