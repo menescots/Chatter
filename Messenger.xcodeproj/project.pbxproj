@@ -17,7 +17,7 @@
 		7E8F6A4E287708C00025F3D8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A4D287708C00025F3D8 /* LoginViewController.swift */; };
 		7E8F6A50287708D70025F3D8 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A4F287708D70025F3D8 /* RegisterViewController.swift */; };
 		7E8F6A52287708F70025F3D8 /* PhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A51287708F70025F3D8 /* PhotoViewerViewController.swift */; };
-		7E8F6A54287709080025F3D8 /* ViedoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A53287709080025F3D8 /* ViedoPlayerViewController.swift */; };
+		7E8F6A54287709080025F3D8 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A53287709080025F3D8 /* VideoPlayerViewController.swift */; };
 		7E8F6A5628770A6B0025F3D8 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A5528770A6B0025F3D8 /* NewConversationViewController.swift */; };
 		7E8F6A5828770A870025F3D8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A5728770A870025F3D8 /* ProfileViewController.swift */; };
 		7EA2D13B287C24E2002D4A37 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7EA2D13A287C24E2002D4A37 /* GoogleService-Info.plist */; };
@@ -43,7 +43,7 @@
 		7E8F6A4D287708C00025F3D8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7E8F6A4F287708D70025F3D8 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		7E8F6A51287708F70025F3D8 /* PhotoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerViewController.swift; sourceTree = "<group>"; };
-		7E8F6A53287709080025F3D8 /* ViedoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViedoPlayerViewController.swift; sourceTree = "<group>"; };
+		7E8F6A53287709080025F3D8 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		7E8F6A5528770A6B0025F3D8 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		7E8F6A5728770A870025F3D8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7EA2D13A287C24E2002D4A37 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -113,7 +113,7 @@
 				7E8F6A37287703AF0025F3D8 /* ConversationsViewController.swift */,
 				7E22DF0A2877118700C7A91C /* Login */,
 				7E8F6A51287708F70025F3D8 /* PhotoViewerViewController.swift */,
-				7E8F6A53287709080025F3D8 /* ViedoPlayerViewController.swift */,
+				7E8F6A53287709080025F3D8 /* VideoPlayerViewController.swift */,
 				7E8F6A5528770A6B0025F3D8 /* NewConversationViewController.swift */,
 				7E8F6A5728770A870025F3D8 /* ProfileViewController.swift */,
 				7EAD704F2880129A004F995F /* ChatViewController.swift */,
@@ -308,7 +308,7 @@
 				7E22DF0C28781BC300C7A91C /* Extensions.swift in Sources */,
 				7E8F6A36287703AE0025F3D8 /* SceneDelegate.swift in Sources */,
 				7E8F6A5828770A870025F3D8 /* ProfileViewController.swift in Sources */,
-				7E8F6A54287709080025F3D8 /* ViedoPlayerViewController.swift in Sources */,
+				7E8F6A54287709080025F3D8 /* VideoPlayerViewController.swift in Sources */,
 				7EAA7A41288E8FC7005AD831 /* ConversationTableViewCell.swift in Sources */,
 				7EAD70502880129A004F995F /* ChatViewController.swift in Sources */,
 				7E8F6A52287708F70025F3D8 /* PhotoViewerViewController.swift in Sources */,

@@ -68,14 +68,12 @@ class ConversationsViewController: UIViewController {
         DatabaseManager.shared.getAllConversations(for: currentUserSafeEmail, completion: { [weak self] result in
             switch result {
             case .success(let conversations):
-                print("success but no convo")
                 print(result)
                 guard !conversations.isEmpty else {
                     return
                 }
-                print("conversation array is empty")
                 self?.conversations = conversations
-                
+                print(conversations)
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
@@ -102,7 +100,7 @@ class ConversationsViewController: UIViewController {
                  return
         }
         
-        let vc = ChatViewController(with: email)
+        let vc = ChatViewController(with: email, id: nil)
         vc.isNewConversation = true
         vc.title = name
         vc.navigationItem.largeTitleDisplayMode = .never
@@ -149,17 +147,17 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = conversations[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier,
-                                                 for: indexPath) as! ConversationTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier, for: indexPath) as! ConversationTableViewCell
         cell.configure(with: model)
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let model = conversations[indexPath.row]
-        
-        let vc = ChatViewController(with: model.otherUserEmail)
+        print(model)
+        let vc = ChatViewController(with: model.otherUserEmail, id: model.id)
         vc.title = model.name
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)

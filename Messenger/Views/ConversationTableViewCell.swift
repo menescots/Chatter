@@ -68,7 +68,7 @@ class ConversationTableViewCell: UITableViewCell {
         self.userMessageLabel.text = model.latestMessage.message
         self.userNameLabel.text = model.name
         
-        let path = "\(model.otherUserEmail)_profile_picture.png"
+        let path = "images/\(model.otherUserEmail)_profile_picture.png"
         StorageManager.shared.downloadURL(for: path, completion: { [weak self] result in
             switch result {
             case .success(let url):

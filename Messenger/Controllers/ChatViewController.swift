@@ -51,33 +51,57 @@ struct Sender: SenderType {
 
 class ChatViewController: MessagesViewController {
     
-    public static let
-dateFormatter: DateFormatter = {
-       let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .long
-        formatter.locale = .current
-        return formatter
-    }()
+    public static let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .medium
+    formatter.timeStyle = .long
+    formatter.locale = .current
+    return formatter
+}()
     
     public var isNewConversation = false
     public let otherUserEmail: String
+    private let conversationId: String?
     
     private var messages = [Message]()
     
     private var selfSender: Sender? = {
-        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
+        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
             return nil
         }
-        
+        let currentUserSafeEmail = DatabaseManager.safeEmail(emailAdress: currentUserEmail)
         return Sender(photoURL: "",
-                      senderId: email,
-                      displayName: "Joe Smith")
+                      senderId: currentUserSafeEmail,
+                      displayName: "Me")
     }()
     
-    init(with email: String) {
+    init(with email: String, id: String?) {
         self.otherUserEmail = email
+        self.conversationId = id
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    private func listenForMessages(id: String, shouldScrollToBottom: Bool) {
+        DatabaseManager.shared.getAllMessagesForConversation(with: id, completion: { [weak self] result in
+            switch result {
+            case .success(let messages):
+                guard !messages.isEmpty else {
+                    return
+                }
+
+                self?.messages = messages
+                DispatchQueue.main.async {
+                    self?.messagesCollectionView.reloadDataAndKeepOffset()
+
+                    if shouldScrollToBottom {
+                        self?.messagesCollectionView.scrollToBottom()
+                    }
+                }
+
+            case .failure(let error):
+                print("failed to get messages: \(error)")
+            }
+        })
     }
     
     required init?(coder: NSCoder) {
@@ -97,6 +121,9 @@ dateFormatter: DateFormatter = {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         messageInputBar.inputTextView.becomeFirstResponder()
+        if let conversationId = conversationId{
+            listenForMessages(id: conversationId, shouldScrollToBottom: true)
+        }
     }
 }
 
