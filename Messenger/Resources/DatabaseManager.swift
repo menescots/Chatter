@@ -11,6 +11,7 @@ import RealmSwift
 import UIKit
 import CoreMedia
 import SwiftUI
+import MessageKit
 
 final class DatabaseManager {
     
@@ -180,8 +181,10 @@ extension DatabaseManager {
                 message = messageText
             case .attributedText(_):
                 break
-            case .photo(_):
-                break
+            case .photo(let mediaItem):
+                if let targetUrlString = mediaItem.url?.absoluteString {
+                    message = targetUrlString
+                }
             case .video(_):
                 break
             case .location(_):
@@ -204,7 +207,7 @@ extension DatabaseManager {
                 "id": conversationID,
                 "other_user_email": otherUserEmail,
                 "name": name,
-                "lastest_message": [
+                "latest_message": [
                     "date": messageDateAsString,
                     "message": message,
                     "is_read": false
@@ -215,7 +218,7 @@ extension DatabaseManager {
                 "id": conversationID,
                 "other_user_email": currentUserSafeEmail,
                 "name": currentUserName,
-                "lastest_message": [
+                "latest_message": [
                     "date": messageDateAsString,
                     "message": message,
                     "is_read": false
@@ -341,7 +344,7 @@ extension DatabaseManager {
                 guard let conversationID = dictionary["id"] as? String,
                       let name = dictionary["name"] as? String,
                       let otherUserEmail = dictionary["other_user_email"] as? String,
-                      let latestMessage = dictionary["lastest_message"] as? [String: Any],
+                      let latestMessage = dictionary["latest_message"] as? [String: Any],
                       let date = latestMessage["date"] as? String,
                       let message = latestMessage["message"] as? String,
                       let isRead = latestMessage["is_read"] as? Bool
@@ -379,13 +382,37 @@ extension DatabaseManager {
                       let date = ChatViewController.dateFormatter.date(from: dateString) else {
                     return nil
                 }
+                
+                var kind: MessageKind?
+                
+                if type == "photo" {
+                    print("type photo")
+                    guard let imageUrl = URL(string: content),
+                          let placeholder = UIImage(systemName: "photo") else {
+                            return nil
+                    }
+                    
+                    let media = Media(url: imageUrl,
+                                      image: nil,
+                                      placeholderImage: placeholder,
+                                      size: CGSize(width: 300, height: 300))
+                    kind = .photo(media)
+                } else {
+                    kind = .text(content)
+                }
+                
+                guard let finalKind = kind else {
+                    return nil
+                }
+                
                 let sender = Sender(photoURL: "",
                                     senderId: senderEmail,
                                     displayName: name)
+                
                 return Message(sender: sender,
                                messageId: messageID,
                                sentDate: date,
-                               kind: .text(content))
+                               kind: finalKind)
             })
             
             completion(.success(messages))
@@ -396,10 +423,6 @@ extension DatabaseManager {
         //TODO: add new message to messages
         //TODO: update sender latest message
         //TODO: update recipient latest message
-        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
-            completion(false)
-            return
-        }
         
         self.database.child("\(conversation)/messages").observeSingleEvent(of: .value, with: { [weak self] snapshot in
             guard let strongSelf = self else {
@@ -420,7 +443,10 @@ extension DatabaseManager {
                 message = messageText
             case .attributedText(_):
                 break
-            case .photo(_):
+            case .photo(let mediaItem):
+                if let targetUrlString = mediaItem.url?.absoluteString {
+                    message = targetUrlString
+                }
                 break
             case .video(_):
                 break
@@ -484,7 +510,7 @@ extension DatabaseManager {
                         }
                         
                         if var targetConversation = targetConversation {
-                            targetConversation["lastest_message"] = updatedValue
+                            targetConversation["latest_message"] = updatedValue
                             currentUserConversations[position] = targetConversation
                             databaseEntryConversations = currentUserConversations
                         } else {
@@ -572,7 +598,7 @@ extension DatabaseManager {
                                 ]
                             }
                             
-                            strongSelf.database.child("\(otherUserEmail)/conversations").setValue(databaseEntryConversations, withCompletionBlock: { error, _ in
+                            strongSelf.database.child("\(otherUserEmail)/conversation").setValue(databaseEntryConversations, withCompletionBlock: { error, _ in
                                 guard error == nil else {
                                     completion(false)
                                     return
