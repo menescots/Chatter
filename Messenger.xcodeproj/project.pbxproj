@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7E22DF0C28781BC300C7A91C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22DF0B28781BC300C7A91C /* Extensions.swift */; };
+		7E8E39D82897D0480059AB70 /* SearchBarCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8E39D72897D0480059AB70 /* SearchBarCustomCell.swift */; };
 		7E8F6A34287703AE0025F3D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A33287703AE0025F3D8 /* AppDelegate.swift */; };
 		7E8F6A36287703AE0025F3D8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A35287703AE0025F3D8 /* SceneDelegate.swift */; };
 		7E8F6A38287703AF0025F3D8 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A37287703AF0025F3D8 /* ConversationsViewController.swift */; };
@@ -32,6 +33,7 @@
 		4ED952170DC15EBC54C1E589 /* Pods-Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.debug.xcconfig"; path = "Target Support Files/Pods-Messenger/Pods-Messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		76EDAA57F77234FC2B45DE7E /* Pods_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E22DF0B28781BC300C7A91C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		7E8E39D72897D0480059AB70 /* SearchBarCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarCustomCell.swift; sourceTree = "<group>"; };
 		7E8F6A30287703AE0025F3D8 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E8F6A33287703AE0025F3D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E8F6A35287703AE0025F3D8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				7E8F6A4C287707550025F3D8 /* Storyboards */,
 				7E8F6A3C287703B60025F3D8 /* Assets.xcassets */,
 				7EAA7A40288E8FC7005AD831 /* ConversationTableViewCell.swift */,
+				7E8E39D72897D0480059AB70 /* SearchBarCustomCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				7E8F6A54287709080025F3D8 /* VideoPlayerViewController.swift in Sources */,
 				7EAA7A41288E8FC7005AD831 /* ConversationTableViewCell.swift in Sources */,
 				7EAD70502880129A004F995F /* ChatViewController.swift in Sources */,
+				7E8E39D82897D0480059AB70 /* SearchBarCustomCell.swift in Sources */,
 				7E8F6A52287708F70025F3D8 /* PhotoViewerViewController.swift in Sources */,
 				7EAD705228804AFC004F995F /* StorageManager.swift in Sources */,
 			);
