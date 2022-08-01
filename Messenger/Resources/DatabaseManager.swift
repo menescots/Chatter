@@ -52,8 +52,8 @@ extension DatabaseManager {
         safeEmail = safeEmail.replacingOccurrences(of: "@", with: "_")
         
         database.child(safeEmail).observeSingleEvent(of: .value,
-                                                 with: { snapshot in
-            guard snapshot.value as? String != nil else {
+                                                     with: { snapshot in
+            guard snapshot.exists() else {
                 completion(false)
                 return
             }
@@ -433,9 +433,6 @@ extension DatabaseManager {
     }
     
     public func sendMessage(to conversation: String, otherUserEmail: String, name: String, newMessage: Message, completion: @escaping (Bool) -> Void){
-        //TODO: add new message to messages
-        //TODO: update sender latest message
-        //TODO: update recipient latest message
         
         self.database.child("\(conversation)/messages").observeSingleEvent(of: .value, with: { [weak self] snapshot in
             guard let strongSelf = self else {
@@ -631,6 +628,38 @@ extension DatabaseManager {
             })
         })
     }
+    
+    public func deleteConversations(withID conversationID: String, completion: @escaping (Bool) -> Void) {
+        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+            return
+        }
+        let currentUserSafeEmail  = DatabaseManager.safeEmail(emailAdress: currentUserEmail)
+        let databaseConvoReference = database.child("\(currentUserSafeEmail)/conversation")
+        
+        databaseConvoReference.observeSingleEvent(of: .value, with: { snapshot in
+            if var conversations = snapshot.value as? [[String: Any]] {
+                var positionToRemove = 0
+                
+                for conversation in conversations {
+                    if let convoID = conversation["id"] as? String,
+                       convoID == conversationID {
+                        break
+                    }
+                    positionToRemove += 1
+                }
+                conversations.remove(at: positionToRemove)
+                databaseConvoReference.setValue(conversations, withCompletionBlock: { error, _ in
+                    guard error == nil else {
+                        completion(false)
+                        return
+                    }
+                    print("deleted convo from db")
+                    completion(true)
+                })
+            }
+        })
+    }
+    
 }
 
 struct ChatAppUser {
