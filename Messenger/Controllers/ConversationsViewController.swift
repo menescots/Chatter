@@ -123,11 +123,22 @@ class ConversationsViewController: UIViewController {
         let name = result.name
         let email = result.email
         
-        let vc = ChatViewController(with: email, id: nil)
-        vc.isNewConversation = true
-        vc.title = name
-        vc.navigationItem.largeTitleDisplayMode = .never
-        navigationController?.pushViewController(vc, animated: true)
+        DatabaseManager.shared.conversationExists(with: email, completion: { [weak self] result in
+            switch result {
+            case .success(let conversationID):
+                let vc = ChatViewController(with: email, id: conversationID)
+                vc.isNewConversation = false
+                vc.title = name
+                vc.navigationItem.largeTitleDisplayMode = .never
+                self?.navigationController?.pushViewController(vc, animated: true)
+            case .failure(_):
+                let vc = ChatViewController(with: email, id: nil)
+                vc.isNewConversation = true
+                vc.title = name
+                vc.navigationItem.largeTitleDisplayMode = .never
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        })
     }
     
     override func viewDidLayoutSubviews() {

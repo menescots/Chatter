@@ -497,12 +497,14 @@ extension DatabaseManager {
             
             strongSelf.database.child("\(conversation)/messages").setValue(currentMessages, withCompletionBlock: { error, _ in
                 guard error == nil else {
+                    
                     completion(false)
                     return
                 }
                 
-                strongSelf.database.child("\(currentUserSafeEmail)/conversation").observeSingleEvent(of: .value, with: { snapshot in
+            strongSelf.database.child("\(currentUserSafeEmail)/conversation").observeSingleEvent(of: .value, with: { snapshot in
                     var databaseEntryConversations = [[String: Any]]()
+                    
                     let updatedValue: [String: Any] = [
                         "date": messageDateAsString,
                         "is_read": false,
@@ -525,6 +527,7 @@ extension DatabaseManager {
                             targetConversation["latest_message"] = updatedValue
                             currentUserConversations[position] = targetConversation
                             databaseEntryConversations = currentUserConversations
+                            
                         } else {
                             let newConversationData: [String: Any] = [
                                 "id": conversation,
@@ -665,8 +668,31 @@ extension DatabaseManager {
             return
         }
         let senderSafeEmail = DatabaseManager.safeEmail(emailAdress: senderEmail)
+        
+        database.child("\(safeRecipientEmail)/conversation").observeSingleEvent(of: .value, with: { snapshot in
+            
+            guard let collection = snapshot.value as? [[String: Any]] else {
+                completion(.failure(DatabaseErrors.failedToFetch))
+                return
+            }
+            
+            if let conversation = collection.first(where: {
+                guard let targetSenderEmail = $0["other_user_email"] as? String else {
+                    return false
+                }
+                return senderSafeEmail == targetSenderEmail
+            }){
+                guard let id = conversation["id"] as? String else {
+                    completion(.failure(DatabaseErrors.failedToFetch))
+                    return
+                }
+                completion(.success(id))
+                return
+            }
+            completion(.failure(DatabaseErrors.failedToFetch))
+            return
+        })
     }
-    
 }
 
 struct ChatAppUser {
