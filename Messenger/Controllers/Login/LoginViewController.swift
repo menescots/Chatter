@@ -46,7 +46,7 @@ class LoginViewController: UIViewController {
         
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0)) //
         field.leftViewMode = .always                                 // setting text in uifield to be 5px away from left
-        field.backgroundColor = .white
+        field.backgroundColor = .secondarySystemBackground
         return field
     }()
     
@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
         
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0)) //
         field.leftViewMode = .always                                 // setting text in uifield to be 5px away from left
-        field.backgroundColor = .white
+        field.backgroundColor = .secondarySystemBackground
         return field
     }()
     
@@ -105,7 +105,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor = UIColor.systemPink
         
         // add target

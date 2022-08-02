@@ -34,7 +34,7 @@ class ProfileViewController: UIViewController {
                                         y: 0,
                                         width: self.view.width,
                                         height: 300))
-        headerView.backgroundColor = .white
+        headerView.backgroundColor = .systemBackground
         
         let imageView = UIImageView(frame: CGRect(x: (headerView.width-150)/2,
                                                   y: 75,
@@ -80,7 +80,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = data[indexPath.row]
-        cell.textLabel?.textColor = .black
+        cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont(name: "Arial", size: 20)
         cell.textLabel?.textAlignment = .center
         return cell
