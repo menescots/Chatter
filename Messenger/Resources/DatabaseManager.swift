@@ -48,8 +48,7 @@ extension DatabaseManager {
         
         //Escaping Closure : An escaping closure is a closure that’s called after the function it was passed to returns. In other words, it outlives the function it was passed to.
         
-        var safeEmail = email.replacingOccurrences(of: ".", with: "_")
-        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "_")
+        var safeEmail = DatabaseManager.safeEmail(emailAdress: email)
         
         database.child(safeEmail).observeSingleEvent(of: .value,
                                                      with: { snapshot in
