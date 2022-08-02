@@ -48,7 +48,7 @@ extension DatabaseManager {
         
         //Escaping Closure : An escaping closure is a closure that’s called after the function it was passed to returns. In other words, it outlives the function it was passed to.
         
-        var safeEmail = DatabaseManager.safeEmail(emailAdress: email)
+        let safeEmail = DatabaseManager.safeEmail(emailAdress: email)
         
         database.child(safeEmail).observeSingleEvent(of: .value,
                                                      with: { snapshot in
@@ -657,6 +657,14 @@ extension DatabaseManager {
                 })
             }
         })
+    }
+    
+    public func conversationExists(with targetRecipientEmail: String, completion: @escaping (Result<String, Error>) -> Void){
+        let safeRecipientEmail = DatabaseManager.safeEmail(emailAdress: targetRecipientEmail)
+        guard let senderEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+            return
+        }
+        let senderSafeEmail = DatabaseManager.safeEmail(emailAdress: senderEmail)
     }
     
 }
