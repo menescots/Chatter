@@ -39,7 +39,7 @@ class ConversationsViewController: UIViewController {
         let label = UILabel()
         label.text = "No conversations."
         label.textAlignment = .center
-        label.textColor = .systemPink
+        label.textColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
         label.font = .systemFont(ofSize: 21, weight: .medium)
         label.isHidden = true
         return label
@@ -49,11 +49,9 @@ class ConversationsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose,
                                                             target: self,
                                                             action: #selector(didTapComposeButton))
-        
         view.addSubview(tableView)
         view.addSubview(noConversationLabel)
         setUpTableView()
@@ -158,7 +156,7 @@ class ConversationsViewController: UIViewController {
             let vc = LoginViewController()
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen
-            nav.navigationBar.tintColor = .link
+            nav.navigationBar.tintColor = .systemBackground
             
             present(nav, animated: true)
         }

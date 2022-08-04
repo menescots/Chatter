@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E075BFA289BE19100CBBC57 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E075BF9289BE19100CBBC57 /* UIButtonExtension.swift */; };
+		7E075C03289BF5F800CBBC57 /* TabBarVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E075C02289BF5F800CBBC57 /* TabBarVCViewController.swift */; };
 		7E22DF0C28781BC300C7A91C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22DF0B28781BC300C7A91C /* Extensions.swift */; };
+		7E837EEB2899409F00FDFC57 /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E837EEA2899409E00FDFC57 /* LocationPickerViewController.swift */; };
 		7E8E39D82897D0480059AB70 /* SearchBarCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8E39D72897D0480059AB70 /* SearchBarCustomCell.swift */; };
 		7E8F6A34287703AE0025F3D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A33287703AE0025F3D8 /* AppDelegate.swift */; };
 		7E8F6A36287703AE0025F3D8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A35287703AE0025F3D8 /* SceneDelegate.swift */; };
@@ -32,7 +35,10 @@
 /* Begin PBXFileReference section */
 		4ED952170DC15EBC54C1E589 /* Pods-Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.debug.xcconfig"; path = "Target Support Files/Pods-Messenger/Pods-Messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		76EDAA57F77234FC2B45DE7E /* Pods_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E075BF9289BE19100CBBC57 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
+		7E075C02289BF5F800CBBC57 /* TabBarVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVCViewController.swift; sourceTree = "<group>"; };
 		7E22DF0B28781BC300C7A91C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		7E837EEA2899409E00FDFC57 /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		7E8E39D72897D0480059AB70 /* SearchBarCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarCustomCell.swift; sourceTree = "<group>"; };
 		7E8F6A30287703AE0025F3D8 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E8F6A33287703AE0025F3D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +125,7 @@
 				7E8F6A5528770A6B0025F3D8 /* NewConversationViewController.swift */,
 				7E8F6A5728770A870025F3D8 /* ProfileViewController.swift */,
 				7EAD704F2880129A004F995F /* ChatViewController.swift */,
+				7E837EEA2899409E00FDFC57 /* LocationPickerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -156,6 +163,8 @@
 				7E22DF0B28781BC300C7A91C /* Extensions.swift */,
 				7EA2D13C287C41C2002D4A37 /* DatabaseManager.swift */,
 				7EAD705128804AFC004F995F /* StorageManager.swift */,
+				7E075BF9289BE19100CBBC57 /* UIButtonExtension.swift */,
+				7E075C02289BF5F800CBBC57 /* TabBarVCViewController.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -309,6 +318,7 @@
 				7E8F6A38287703AF0025F3D8 /* ConversationsViewController.swift in Sources */,
 				7E8F6A34287703AE0025F3D8 /* AppDelegate.swift in Sources */,
 				7E22DF0C28781BC300C7A91C /* Extensions.swift in Sources */,
+				7E075BFA289BE19100CBBC57 /* UIButtonExtension.swift in Sources */,
 				7E8F6A36287703AE0025F3D8 /* SceneDelegate.swift in Sources */,
 				7E8F6A5828770A870025F3D8 /* ProfileViewController.swift in Sources */,
 				7E8F6A54287709080025F3D8 /* VideoPlayerViewController.swift in Sources */,
@@ -316,7 +326,9 @@
 				7EAD70502880129A004F995F /* ChatViewController.swift in Sources */,
 				7E8E39D82897D0480059AB70 /* SearchBarCustomCell.swift in Sources */,
 				7E8F6A52287708F70025F3D8 /* PhotoViewerViewController.swift in Sources */,
+				7E075C03289BF5F800CBBC57 /* TabBarVCViewController.swift in Sources */,
 				7EAD705228804AFC004F995F /* StorageManager.swift in Sources */,
+				7E837EEB2899409F00FDFC57 /* LocationPickerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

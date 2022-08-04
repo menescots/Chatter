@@ -12,6 +12,7 @@ import UIKit
 import CoreMedia
 import SwiftUI
 import MessageKit
+import CoreLocation
 
 final class DatabaseManager {
     
@@ -180,14 +181,10 @@ extension DatabaseManager {
                 message = messageText
             case .attributedText(_):
                 break
-            case .photo(let mediaItem):
-                if let targetUrlString = mediaItem.url?.absoluteString {
-                    message = targetUrlString
-                }
-            case .video(let mediaItem):
-                if let targetUrlString = mediaItem.url?.absoluteString {
-                    message = targetUrlString
-                }
+            case .photo(_):
+                break
+            case .video(_):
+                break
             case .location(_):
                 break
             case .emoji(_):
@@ -409,6 +406,19 @@ extension DatabaseManager {
                                       placeholderImage: placeholder,
                                       size: CGSize(width: 300, height: 300))
                     kind = .video(media)
+                } else if type == "location" {
+                    let locationComponens = content.components(separatedBy: ",")
+                    guard let longitude = Double(locationComponens[0]),
+                          let latitude = Double(locationComponens[1]) else {
+                        return nil
+                    }
+                    
+                    let location = Location(location: CLLocation(latitude: latitude,
+                                                                 longitude: longitude),
+                                            size: CGSize(width: 300, height: 200))
+                    
+                    kind = .location(location)
+
                 } else {
                     kind = .text(content)
                 }
@@ -462,7 +472,9 @@ extension DatabaseManager {
                     message = targetUrlString
                 }
                 break
-            case .location(_):
+            case .location(let locationData):
+                let location = locationData.location
+                message = "\(location.coordinate.longitude),\(location.coordinate.latitude)"
                 break
             case .emoji(_):
                 break

@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -25,13 +26,14 @@
             </objects>
             <point key="canvasLocation" x="-630" y="984"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab BarVC View Controller-->
         <scene sceneID="Sid-Uf-E6d">
             <objects>
-                <tabBarController id="1Yk-31-3gx" sceneMemberID="viewController">
+                <tabBarController id="1Yk-31-3gx" customClass="TabBarVCViewController" customModule="Messenger" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nMN-BE-cc0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <tabBarAppearance key="scrollEdgeAppearance" backgroundEffect="regular" backgroundImageContentMode="center" stackedItemPositioning="automatic"/>
                     </tabBar>
                     <connections>
                         <segue destination="Sr8-iM-bpH" kind="relationship" relationship="viewControllers" id="LDA-XT-YSg"/>
@@ -45,22 +47,23 @@
         <!--Navigation Controller-->
         <scene sceneID="qCr-jf-8bg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Sr8-iM-bpH" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="Sr8-iM-bpH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="3bL-0K-DNB">
-                        <imageReference key="image" image="message.fill" catalog="system" renderingMode="hierarchical-single">
+                        <imageReference key="image" image="message.fill" catalog="system" symbolScale="large" renderingMode="hierarchical-single">
                             <hierarchicalColors>
-                                <color systemColor="systemPinkColor"/>
+                                <color red="0.93623572590000004" green="0.62022876739999999" blue="0.78040546180000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color systemColor="secondaryLabelColor"/>
                                 <color systemColor="tertiaryLabelColor"/>
                             </hierarchicalColors>
                         </imageReference>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="bp2-Bu-vPF">
+                    <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" largeTitles="YES" id="bp2-Bu-vPF">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="label"/>
                         <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" systemColor="systemPinkColor"/>
+                            <color key="textColor" red="0.59996584630000005" green="0.39920023789999998" blue="0.50569784920000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -75,23 +78,28 @@
         <!--Navigation Controller-->
         <scene sceneID="ue0-qZ-7c8">
             <objects>
-                <navigationController id="Sf1-h1-8wq" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" toolbarHidden="NO" id="Sf1-h1-8wq" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="yze-B4-FiG">
-                        <imageReference key="image" image="person.fill" catalog="system" renderingMode="hierarchical-single">
+                        <imageReference key="image" image="person.fill" catalog="system" symbolScale="large" renderingMode="hierarchical-single">
                             <hierarchicalColors>
-                                <color systemColor="systemPinkColor"/>
+                                <color red="0.93623572590000004" green="0.62022876739999999" blue="0.78040546180000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color systemColor="secondaryLabelColor"/>
                                 <color systemColor="tertiaryLabelColor"/>
                             </hierarchicalColors>
                         </imageReference>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="lzj-Fx-YD6">
+                    <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" largeTitles="YES" id="lzj-Fx-YD6">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="label"/>
                         <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" systemColor="systemPinkColor"/>
+                            <color key="textColor" red="0.69135507910000005" green="0.46000803829999998" blue="0.58272779799999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </textAttributes>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uFW-yD-OwP">
+                        <rect key="frame" x="0.0" y="764" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="8yZ-Lo-c2q" kind="relationship" relationship="rootViewController" id="ybJ-PR-Rym"/>
                     </connections>
@@ -108,18 +116,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Rbq-es-YsQ">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Rbq-es-YsQ">
+                                <rect key="frame" x="0.0" y="140" width="414" height="502"/>
+                                <color key="separatorColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgw-S1-aa6" customClass="MyButton" customModule="Messenger" customModuleProvider="target">
+                                <rect key="frame" x="140" y="679" width="134" height="41"/>
+                                <color key="backgroundColor" red="0.69135507910000005" green="0.46000803829999998" blue="0.58272779799999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="aHx-a3-Ivv"/>
+                                </constraints>
+                                <color key="tintColor" red="0.92202021231658726" green="0.83722165285041239" blue="0.95276088070658138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Log Out"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="logOutButton:" destination="8yZ-Lo-c2q" eventType="touchUpInside" id="v05-Ns-tpM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Zaf-fl-MYK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="top" secondItem="Zaf-fl-MYK" secondAttribute="top" id="7af-sc-shI"/>
-                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="leading" secondItem="Zaf-fl-MYK" secondAttribute="leading" id="YMB-Ev-jo5"/>
-                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="bottom" secondItem="Zaf-fl-MYK" secondAttribute="bottom" id="YtM-0i-l4q"/>
-                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="centerX" secondItem="wee-EK-3vs" secondAttribute="centerX" id="itv-eC-uXe"/>
+                            <constraint firstItem="bgw-S1-aa6" firstAttribute="top" secondItem="Rbq-es-YsQ" secondAttribute="bottom" constant="37" id="2ih-sa-ag0"/>
+                            <constraint firstItem="Zaf-fl-MYK" firstAttribute="bottom" secondItem="bgw-S1-aa6" secondAttribute="bottom" constant="44" id="4Ep-hT-RJk"/>
+                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="leading" secondItem="Zaf-fl-MYK" secondAttribute="leading" id="JSN-62-b1v"/>
+                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="centerX" secondItem="wee-EK-3vs" secondAttribute="centerX" id="TDE-UW-9DP"/>
+                            <constraint firstItem="bgw-S1-aa6" firstAttribute="leading" secondItem="Zaf-fl-MYK" secondAttribute="leading" constant="140" id="XB8-Yc-gIz"/>
+                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="centerX" secondItem="bgw-S1-aa6" secondAttribute="centerX" id="k3c-Rs-SX2"/>
+                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="top" secondItem="Zaf-fl-MYK" secondAttribute="top" id="lQP-jz-gfS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="SWv-Ok-4TM"/>
@@ -132,17 +159,23 @@
             <point key="canvasLocation" x="298.55072463768118" y="983.70535714285711"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="bgw-S1-aa6">
+            <size key="intrinsicContentSize" width="75.5" height="31"/>
+        </designable>
+    </designables>
+    <color key="tintColor" red="0.69135507911142668" green="0.46000803833027704" blue="0.58272779801583474" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
         <image name="message.fill" catalog="system" width="128" height="113"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <namedColor name="label">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>

@@ -44,6 +44,12 @@
 	<string>97525877f1f2e898335a706e0cabd4f7</string>
 	<key>FacebookDisplayName</key>
 	<string>My messenger</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App needs your permission to show your current location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>App needs your permission to show your current location</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>

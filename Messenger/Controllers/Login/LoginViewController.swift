@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
     private let passwordSwitch: UISwitch = {
        let passwordSwitch = UISwitch()
         passwordSwitch.isOn = false
-        passwordSwitch.onTintColor = .lightGray
+        passwordSwitch.onTintColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
         return passwordSwitch
     }()
     
@@ -30,7 +30,7 @@ class LoginViewController: UIViewController {
         let label = UILabel()
         label.text = "Tap to show password"
         label.font = .systemFont(ofSize: 10, weight: .semibold)
-        label.textColor = .systemPink
+        label.textColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
         return label
     }()
     
@@ -41,7 +41,7 @@ class LoginViewController: UIViewController {
         field.returnKeyType = .continue // when return is clicked it jumps to password field
         field.layer.cornerRadius = 12
         field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.black.cgColor
+        field.layer.borderColor = UIColor.lightGray.cgColor
         field.placeholder = "Enter email adress..."
         
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0)) //
@@ -57,7 +57,7 @@ class LoginViewController: UIViewController {
         field.returnKeyType = .done // when return is clicked it jumps to password field
         field.layer.cornerRadius = 12
         field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.black.cgColor
+        field.layer.borderColor = UIColor.lightGray.cgColor
         field.placeholder = "Password..."
         field.isSecureTextEntry = true
         
@@ -70,7 +70,7 @@ class LoginViewController: UIViewController {
     private let logInButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
-        button.backgroundColor = .systemPink
+        button.backgroundColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
@@ -81,7 +81,7 @@ class LoginViewController: UIViewController {
     private let pushToRegisterButton: UIButton = {
         let button = UIButton()
         button.setTitle("Register", for: .normal)
-        button.backgroundColor = .systemPink
+        button.backgroundColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
@@ -92,7 +92,7 @@ class LoginViewController: UIViewController {
     private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "message")
-        imageView.tintColor = .systemPink
+        imageView.tintColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -106,7 +106,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.tintColor = UIColor.systemPink
+        navigationController?.navigationBar.tintColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
         
         // add target
         logInButton.addTarget(self,

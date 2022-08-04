@@ -36,7 +36,7 @@ class NewConversationViewController: UIViewController {
         label.isHidden = true
         label.text = "No Results"
         label.textAlignment = .center
-        label.textColor = .systemPink
+        label.textColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
         label.font = .systemFont(ofSize: 21, weight: .medium)
         return label
     }()

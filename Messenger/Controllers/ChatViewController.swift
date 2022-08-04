@@ -4,7 +4,7 @@
 //
 //  Created by Agata Menes on 14/07/2022.
 //
-
+import CoreLocation
 import UIKit
 import MessageKit
 import InputBarAccessoryView
@@ -56,6 +56,11 @@ struct Media: MediaItem {
     var url: URL?
     var image: UIImage?
     var placeholderImage: UIImage
+    var size: CGSize
+}
+
+struct Location: LocationItem {
+    var location: CLLocation
     var size: CGSize
 }
 
@@ -120,7 +125,7 @@ class ChatViewController: MessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemPink
+        navigationItem.backButtonTitle = ""
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
@@ -128,7 +133,6 @@ class ChatViewController: MessagesViewController {
         messageInputBar.delegate = self
         setupInputButton()
     }
-    
     private func setupInputButton() {
         let button = InputBarButtonItem()
         button.setSize(CGSize(width: 35, height: 35), animated: false)
@@ -149,6 +153,9 @@ class ChatViewController: MessagesViewController {
         actionSheet.addAction(UIAlertAction(title: "Video", style: .default, handler: { [weak self] _ in
             self?.presentVideoInputActionSheet()
         }))
+        actionSheet.addAction(UIAlertAction(title: "Location", style: .default, handler: { [weak self] _ in
+            self?.presentLocationPicker()
+        }))
         actionSheet.addAction(UIAlertAction(title: "Audio", style: .default, handler: { _ in
             
         }))
@@ -157,6 +164,45 @@ class ChatViewController: MessagesViewController {
         present(actionSheet, animated: true)
     }
     
+    private func presentLocationPicker() {
+        let vc = LocationPickerViewController(coordinates: nil)
+        vc.title = "Choose location to send"
+        vc.navigationItem.largeTitleDisplayMode = .never
+        vc.completion = { [weak self] selectedCoordinates in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            guard let conversationId = self?.conversationId,
+                  let name = self?.title,
+                  let selfSender = self?.selfSender,
+                  let messageID = self?.createMessageID() else {
+                    return
+            }
+            
+            let longitude: Double = selectedCoordinates.longitude
+            let latitude: Double = selectedCoordinates.latitude
+            let location = Location(location: CLLocation(latitude: latitude,
+                                                      longitude: longitude),
+                                 size: .zero)
+            
+            let message = Message(sender: selfSender,
+                                  messageId: messageID,
+                                  sentDate: Date(),
+                                  kind: .location(location))
+            
+            DatabaseManager.shared.sendMessage(to: conversationId, otherUserEmail: strongSelf.otherUserEmail, name: name, newMessage: message, completion: { success in
+                
+                if success {
+                    print("location send")
+                } else {
+                    print("location not send")
+                }
+            })
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
     private func presentPhotoInputActionSheet() {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Photo library", style: .default, handler: { [weak self] _ in
@@ -325,6 +371,23 @@ extension ChatViewController: MessageCellDelegate {
             let vc = AVPlayerViewController()
             vc.player = AVPlayer(url: videoUrl)
             present(vc, animated: true)
+        default:
+            break
+        }
+    }
+    
+    func didTapMessage(in cell: MessageCollectionViewCell) {
+        guard let indexPath = messagesCollectionView.indexPath(for: cell) else {
+            return
+        }
+        let message = messages[indexPath.section]
+        
+        switch message.kind {
+        case .location(let locationData):
+            let coordinates = locationData.location.coordinate
+            let vc = LocationPickerViewController(coordinates: coordinates)
+            vc.title = "Location"
+            self.navigationController?.pushViewController(vc, animated: true)
         default:
             break
         }
