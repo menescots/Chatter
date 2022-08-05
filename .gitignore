@@ -91,5 +91,10 @@ iOSInjectionProject/
 
 Pods/Realm/core/realm-monorepo.xcframework/watchos-arm64_i386_x86_64-simulator/librealm-monorepo.a
 Pods/Realm/core/realm-monorepo.xcframework/watchos-armv7k_arm64_32/librealm-monorepo.a
+Pods/Realm/core/realm-monorepo.xcframework/tvos-arm64_x86_64-simulator/librealm-monorepo.a
+Pods/Realm/core/realm-monorepo.xcframework/ios-arm64_armv7/librealm-monorepo.a
+Pods/Realm/core/realm-monorepo.xcframework/watchos-armv7k_arm64_32_arm64/librealm-monorepo.a
+Pods/Realm/core/realm-monorepo.xcframework/ios-arm64_x86_64_i386-simulator/librealm-monorepo.a
+
 
 "Pods/Realm/core/realm-monorepo.xcframework/watchos-arm64_i386_x86_64-simulator/librealm-monorepo 2.a"
