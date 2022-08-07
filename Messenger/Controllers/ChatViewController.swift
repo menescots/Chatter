@@ -66,6 +66,9 @@ struct Location: LocationItem {
 
 class ChatViewController: MessagesViewController {
     
+    private var senderphotoUrl: URL?
+    private var otherUserPhotoUrl: URL?
+    
     public static let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .medium
@@ -351,6 +354,64 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
 }
 
 extension ChatViewController: MessageCellDelegate {
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+            let sender = message.sender
+            if sender.senderId == selfSender?.senderId {
+                return UIColor(named: "testColor")!
+            } else {
+                return UIColor.lightGray
+            }
+        }
+        
+        func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+            let sender = message.sender
+            
+            if sender.senderId == selfSender?.senderId {
+                
+                if let currentUserImageURL = self.senderphotoUrl {
+                    avatarView.sd_setImage(with: currentUserImageURL, completed: nil)
+                } else {
+                    guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+                        return
+                    }
+                    let currentUserSafeEmail = DatabaseManager.safeEmail(emailAdress: currentUserEmail)
+                    let path = "images/\(currentUserSafeEmail)_profile_picture.png"
+                    
+                    StorageManager.shared.downloadURL(for: path, completion: { [weak self] result in
+                        switch result {
+                        case .success(let url):
+                            self?.senderphotoUrl = url
+                            DispatchQueue.main.async {
+                                avatarView.sd_setImage(with: url)
+                            }
+                        case .failure(let error):
+                            print(error)
+                        }
+                    })
+                }
+            } else {
+                if let otherUserImageURL = self.otherUserPhotoUrl {
+                    avatarView.sd_setImage(with: otherUserImageURL, completed: nil)
+                } else {
+                    let otherUserEmail = self.otherUserEmail
+                    let otherUserSafeEmail = DatabaseManager.safeEmail(emailAdress: otherUserEmail)
+                    let path = "images/\(otherUserSafeEmail)_profile_picture.png"
+                    
+                    StorageManager.shared.downloadURL(for: path, completion: { [weak self] result in
+                        switch result {
+                        case .success(let url):
+                            self?.otherUserPhotoUrl = url
+                            DispatchQueue.main.async {
+                                avatarView.sd_setImage(with: url)
+                            }
+                        case .failure(let error):
+                            print(error)
+                        }
+                    })
+                }
+            }
+        }
+    
     func didTapImage(in cell: MessageCollectionViewCell) {
         guard let indexPath = messagesCollectionView.indexPath(for: cell) else {
             return
