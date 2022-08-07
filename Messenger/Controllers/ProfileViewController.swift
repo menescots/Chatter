@@ -45,6 +45,9 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func logOutButton(_ sender: Any) {
+        UserDefaults.standard.setValue(nil, forKey: "email")
+        UserDefaults.standard.setValue(nil, forKey: "name")
+        UserDefaults.standard.setValue(nil, forKey: "profile_picture_url")
         logOutUser()
     }
     

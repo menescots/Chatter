@@ -79,7 +79,7 @@ class ChatViewController: MessagesViewController {
     
     public var isNewConversation = false
     public let otherUserEmail: String
-    private let conversationId: String?
+    private var conversationId: String?
     
     private var messages = [Message]()
     
@@ -284,6 +284,9 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                 if success {
                     print("message sent")
                     self?.isNewConversation = false
+                    let newConversationID = "conversation_\(message.messageId)".replacingOccurrences(of: "/", with: "_")
+                    self?.conversationId = newConversationID
+                    self?.listenForMessages(id: newConversationID, shouldScrollToBottom: true)
                 } else {
                     print("failed to send message")
                     

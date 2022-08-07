@@ -86,6 +86,7 @@ class ConversationsViewController: UIViewController {
                 }
                 self?.conversations = conversations
                 DispatchQueue.main.async {
+                    print("reloading convo")
                     self?.tableView.reloadData()
                 }
                 
