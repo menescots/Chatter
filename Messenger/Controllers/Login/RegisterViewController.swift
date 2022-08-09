@@ -8,7 +8,7 @@ import JGProgressHUD
 import UIKit
 import FirebaseAuth
 class RegisterViewController: UIViewController {
-
+    private var isExpand: Bool = false
     private let spinner = JGProgressHUD(style: .dark)
     
     private let scrollView: UIScrollView = {
@@ -127,6 +127,11 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        self.hideKeyboardWhenTappedAround()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         navigationController?.navigationBar.tintColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
         
         
@@ -160,6 +165,32 @@ class RegisterViewController: UIViewController {
         gesture.numberOfTapsRequired = 1
         gesture.numberOfTouchesRequired = 1
         imageView.addGestureRecognizer(gesture)
+    }
+    
+    @objc func keyboardAppear(notification:NSNotification) {
+        if !isExpand{
+            if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let keyboardHeight = keyboardFrame.cgRectValue.height
+                self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.scrollView.frame.height + keyboardHeight - 50)
+            }
+            else{
+                self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.scrollView.frame.height + 200)
+            }
+            isExpand = true
+        }
+    }
+
+    @objc func keyboardDisappear(notification:NSNotification) {
+        if isExpand{
+            if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let keyboardHeight = keyboardFrame.cgRectValue.height
+                self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.scrollView.frame.height - keyboardHeight - 50)
+            }
+            else{
+                self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.scrollView.frame.height - 200)
+            }
+            isExpand = false
+        }
     }
     
     @objc func didTapChangeProfilePic() {

@@ -11,6 +11,7 @@
 		7E075BFA289BE19100CBBC57 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E075BF9289BE19100CBBC57 /* UIButtonExtension.swift */; };
 		7E075C03289BF5F800CBBC57 /* TabBarVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E075C02289BF5F800CBBC57 /* TabBarVCViewController.swift */; };
 		7E22DF0C28781BC300C7A91C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22DF0B28781BC300C7A91C /* Extensions.swift */; };
+		7E4D6ECE28A2529A00117C65 /* keyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4D6ECD28A2529A00117C65 /* keyboardExtension.swift */; };
 		7E837EEB2899409F00FDFC57 /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E837EEA2899409E00FDFC57 /* LocationPickerViewController.swift */; };
 		7E8E39D82897D0480059AB70 /* SearchBarCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8E39D72897D0480059AB70 /* SearchBarCustomCell.swift */; };
 		7E8F6A34287703AE0025F3D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F6A33287703AE0025F3D8 /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 		7E075BF9289BE19100CBBC57 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		7E075C02289BF5F800CBBC57 /* TabBarVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVCViewController.swift; sourceTree = "<group>"; };
 		7E22DF0B28781BC300C7A91C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		7E4D6ECD28A2529A00117C65 /* keyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboardExtension.swift; sourceTree = "<group>"; };
 		7E837EEA2899409E00FDFC57 /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		7E8E39D72897D0480059AB70 /* SearchBarCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarCustomCell.swift; sourceTree = "<group>"; };
 		7E8F6A30287703AE0025F3D8 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +175,7 @@
 				7EAD705128804AFC004F995F /* StorageManager.swift */,
 				7E075BF9289BE19100CBBC57 /* UIButtonExtension.swift */,
 				7E075C02289BF5F800CBBC57 /* TabBarVCViewController.swift */,
+				7E4D6ECD28A2529A00117C65 /* keyboardExtension.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				7EA2D13D287C41C2002D4A37 /* DatabaseManager.swift in Sources */,
 				7E8F6A50287708D70025F3D8 /* RegisterViewController.swift in Sources */,
 				7E8F6A5628770A6B0025F3D8 /* NewConversationViewController.swift in Sources */,
+				7E4D6ECE28A2529A00117C65 /* keyboardExtension.swift in Sources */,
 				7E8F6A38287703AF0025F3D8 /* ConversationsViewController.swift in Sources */,
 				7E8F6A34287703AE0025F3D8 /* AppDelegate.swift in Sources */,
 				7E22DF0C28781BC300C7A91C /* Extensions.swift in Sources */,

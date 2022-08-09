@@ -31,7 +31,7 @@ final class DatabaseManager {
 
 extension DatabaseManager {
     public func getDataFor(path: String, completion: @escaping (Result<Any, Error>) -> Void){
-        self.database.child("\(path)").observeSingleEvent(of: .value, with: { snapshot in
+        database.child("\(path)").observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value else {
                 completion(.failure(DatabaseErrors.failedToFetch))
                 return
@@ -67,14 +67,17 @@ extension DatabaseManager {
         database.child(user.safeEmail).setValue([ // key of user is email
             "first_name": user.firstName,
             "last_name": user.lastName
-            ], withCompletionBlock: { error, _ in
+            ], withCompletionBlock: { [weak self] error, _ in
+                guard let strongSelf = self else {
+                    return
+                }
                 guard error == nil else {
                     print("failed to write to database")
                     completion(false)
                     return
                 }
 
-                self.database.child("users").observeSingleEvent(of: .value, with: { snapshot in
+                strongSelf.database.child("users").observeSingleEvent(of: .value, with: { snapshot in
                     if var usersCollection = snapshot.value as? [[String: String]] {
                         
                         let newUser = [
@@ -83,11 +86,11 @@ extension DatabaseManager {
                         ]
                         usersCollection.append(newUser)
                         
-                self.database.child("users").setValue(usersCollection, withCompletionBlock: { error, _ in
-                    guard error == nil else {
-                        completion(false)
-                        return
-                        }
+                        strongSelf.database.child("users").setValue(usersCollection, withCompletionBlock: { error, _ in
+                            guard error == nil else {
+                                completion(false)
+                                return
+                            }
                             completion(true)
                         })
                         
@@ -98,7 +101,7 @@ extension DatabaseManager {
                                 "email": user.safeEmail
                             ]
                         ]
-                        self.database.child("users").setValue(newCollection, withCompletionBlock: { error, _ in
+                        strongSelf.database.child("users").setValue(newCollection, withCompletionBlock: { error, _ in
                             guard error == nil else {
                                 completion(false)
                                 return
@@ -373,7 +376,7 @@ extension DatabaseManager {
                 guard let content = dictionary["content"] as? String,
                       let dateString = dictionary["date"] as? String,
                       let messageID = dictionary["id"] as? String,
-                      let isRead = dictionary["is_read"] as? Bool,
+                      //let isRead = dictionary["is_read"] as? Bool,
                       let name = dictionary["name"] as? String,
                       let senderEmail = dictionary["sender_email"] as? String,
                       let type = dictionary["type"] as? String,

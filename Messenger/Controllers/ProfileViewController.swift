@@ -142,16 +142,16 @@ class ProfileTableViewCell: UITableViewCell {
     static let identifier = "ProfileTableViewCell"
     
     public func setUp(with viewModel: ProfileViewModel) {
-        self.textLabel?.text = viewModel.title
+        textLabel?.text = viewModel.title
         switch viewModel.profileViewModelType {
         case .name:
-            self.textLabel?.textColor = UIColor.label
-            self.textLabel?.textAlignment = .center
-            self.textLabel?.font = UIFont.systemFont(ofSize: 30)
+            textLabel?.textColor = UIColor.label
+            textLabel?.textAlignment = .center
+            textLabel?.font = UIFont.systemFont(ofSize: 30)
         case .email:
-            self.textLabel?.textColor = UIColor.label
-            self.textLabel?.textAlignment = .center
-            self.textLabel?.font = UIFont.systemFont(ofSize: 15)
+            textLabel?.textColor = UIColor.label
+            textLabel?.textAlignment = .center
+            textLabel?.font = UIFont.systemFont(ofSize: 15)
         }
     }
 }

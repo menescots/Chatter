@@ -10,7 +10,7 @@ import FirebaseAuth
 import FBSDKLoginKit
 import JGProgressHUD
 class LoginViewController: UIViewController {
-
+    private var isExpand: Bool = false
     private let spinner = JGProgressHUD(style: .dark)
     
     private let scrollView: UIScrollView = {
@@ -106,6 +106,12 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        
+        self.hideKeyboardWhenTappedAround()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         navigationController?.navigationBar.tintColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
         
         // add target
@@ -132,6 +138,32 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(passwordSwitch)
         scrollView.addSubview(showPasswordLabel)
         scrollView.addSubview(fbLoginButton)
+    }
+    
+    @objc func keyboardAppear(notification:NSNotification) {
+        if !isExpand{
+            if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let keyboardHeight = keyboardFrame.cgRectValue.height
+                self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.scrollView.frame.height + keyboardHeight - 50)
+            }
+            else{
+                self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.scrollView.frame.height + 200)
+            }
+            isExpand = true
+        }
+    }
+
+    @objc func keyboardDisappear(notification:NSNotification) {
+        if isExpand{
+            if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let keyboardHeight = keyboardFrame.cgRectValue.height
+                self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.scrollView.frame.height - keyboardHeight - 50)
+            }
+            else{
+                self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.scrollView.frame.height - 200)
+            }
+            isExpand = false
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -213,7 +245,7 @@ class LoginViewController: UIViewController {
             let user = result.user
             
             let currentUserSafeEmail = DatabaseManager.safeEmail(emailAdress: email)
-            DatabaseManager.shared.getDataFor(path: currentUserSafeEmail, completion: { [weak self] result in
+            DatabaseManager.shared.getDataFor(path: currentUserSafeEmail, completion: { result in
                 switch result {
                 case .success(let data):
                     guard let userData = data as? [String: Any],

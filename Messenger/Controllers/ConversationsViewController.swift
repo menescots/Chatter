@@ -212,13 +212,15 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            tableView.beginUpdates()
-            let conversationID = conversations[indexPath.row].id
             
-            DatabaseManager.shared.deleteConversations(withID: conversationID, completion: { [weak self] success in
+            let conversationID = conversations[indexPath.row].id
+            tableView.beginUpdates()
+            self.conversations.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            DatabaseManager.shared.deleteConversations(withID: conversationID, completion: { success in
                 if success {
-                    self?.conversations.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                print("succes deleting convo")
                 }
             })
             tableView.endUpdates()
