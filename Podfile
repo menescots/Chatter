@@ -2,8 +2,6 @@
 # platform :ios, '9.0'
 
 target 'Messenger' do
-  use_frameworks!
-
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
@@ -19,4 +17,7 @@ pod 'MessageKit'
 pod 'JGProgressHUD'
 pod 'RealmSwift'
 pod 'SDWebImage'
+
+use_frameworks!
+
 end

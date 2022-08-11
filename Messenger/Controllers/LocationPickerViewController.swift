@@ -9,7 +9,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class LocationPickerViewController: UIViewController {
+final class LocationPickerViewController: UIViewController {
     
     public var completion: ((CLLocationCoordinate2D) -> Void)?
     private var coordinates: CLLocationCoordinate2D?
@@ -36,7 +36,7 @@ class LocationPickerViewController: UIViewController {
     private func configureNavigationController() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .systemBackground
+        appearance.backgroundColor = UIColor(named: "backgroundColor")
         appearance.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 18)]
         self.navigationController?.navigationBar.standardAppearance = appearance
         self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
@@ -47,7 +47,7 @@ class LocationPickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationController()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "backgroundColor")
         locationManager.delegate = self
         
         if isPicable {

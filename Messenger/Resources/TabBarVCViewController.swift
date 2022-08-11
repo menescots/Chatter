@@ -11,7 +11,7 @@ class TabBarVCViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBar.backgroundColor = UIColor(named: "testColor")
+        self.tabBar.backgroundColor = UIColor(named: "tabbarColor")
         ChangeRadiusOfTabbar()
     }
     
@@ -25,16 +25,16 @@ class TabBarVCViewController: UITabBarController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        ChangeHeightOfTabbar()
+        //ChangeHeightOfTabbar()
     }
 
-    func ChangeHeightOfTabbar(){
-        if UIDevice().userInterfaceIdiom == .phone {
-            var tabFrame            = tabBar.frame
-            tabFrame.size.height    = 95
-            tabFrame.origin.y       = view.frame.size.height - 90
-            tabBar.frame            = tabFrame
-        }
-        
-    }
+//    func ChangeHeightOfTabbar(){
+//        if UIDevice().userInterfaceIdiom == .phone {
+//            var tabFrame            = tabBar.frame
+//            tabFrame.size.height    = 60
+//            tabFrame.origin.y       = view.frame.size.height - 60
+//            tabBar.frame            = tabFrame
+//        }
+//
+//    }
 }

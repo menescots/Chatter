@@ -8,7 +8,7 @@
 import UIKit
 import JGProgressHUD
 
-class NewConversationViewController: UIViewController {
+final class NewConversationViewController: UIViewController {
 
     public var completion: ((SearchResult) -> (Void))?
     
@@ -36,21 +36,21 @@ class NewConversationViewController: UIViewController {
         label.isHidden = true
         label.text = "No Results"
         label.textAlignment = .center
-        label.textColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
+        label.textColor = UIColor(named: "labelTextColor")
         label.font = .systemFont(ofSize: 21, weight: .medium)
         return label
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationController?.navigationBar.tintColor = UIColor(named: "textColor")
         view.addSubview(noResultLabel)
         view.addSubview(resultsTableView)
         resultsTableView.delegate = self
         resultsTableView.dataSource = self
         
         searchBar.delegate = self
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "backgroundColor")
 
         navigationController?.navigationBar.topItem?.titleView = searchBar
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel",
@@ -65,10 +65,10 @@ class NewConversationViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         resultsTableView.frame = view.bounds
-        noResultLabel.frame = CGRect(x: (view.width/4),
-                                     y: (view.height-200)/2,
-                                     width: 150,
-                                     height: 200)
+        noResultLabel.frame = CGRect(x: 10,
+                                     y: (view.height-100)/2,
+                                     width: view.width-20,
+                                     height: 100)
     }
     
     @objc private func dismissSelf() {
@@ -185,9 +185,4 @@ extension NewConversationViewController: UISearchBarDelegate {
         }
     }
     
-}
-
-struct SearchResult {
-    let name: String
-    let email: String
 }

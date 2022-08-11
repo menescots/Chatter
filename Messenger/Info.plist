@@ -2,14 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSMicrophoneUsageDescription</key>
-	<string></string>
-	<key>CFBundleIdentifier</key>
-	<string></string>
-	<key>NSCameraUsageDescription</key>
-	<string>Please allow access to take a profile picture</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Please allow access to select photo from your gallery</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb2657310884405165</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>2657310884405165</string>
+	<key>FacebookClientToken</key>
+	<string>97525877f1f2e898335a706e0cabd4f7</string>
+	<key>FacebookDisplayName</key>
+	<string>My messenger</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -29,31 +41,5 @@
 			</array>
 		</dict>
 	</dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb2657310884405165</string>
-			</array>
-		</dict>
-	</array>
-	<key>FacebookAppID</key>
-	<string>2657310884405165</string>
-	<key>FacebookClientToken</key>
-	<string>97525877f1f2e898335a706e0cabd4f7</string>
-	<key>FacebookDisplayName</key>
-	<string>My messenger</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>App needs your permission to show your current location</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>App needs your permission to show your current location</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string></string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-share-api</string>
-	</array>
 </dict>
 </plist>

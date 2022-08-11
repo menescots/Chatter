@@ -84,7 +84,7 @@ class RegisterViewController: UIViewController {
     private let registerInButton: UIButton = {
         let button = UIButton()
         button.setTitle("Register", for: .normal)
-        button.backgroundColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
+        button.backgroundColor = UIColor(named: "labelTextColor")
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
@@ -96,14 +96,14 @@ class RegisterViewController: UIViewController {
         let label = UILabel()
         label.text = "Tap icon to chose profile picture"
         label.font = .systemFont(ofSize: 10, weight: .semibold)
-        label.textColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
+        label.textColor = UIColor(named: "labelTextColor")
         return label
     }()
     
     private let passwordSwitch: UISwitch = {
        let passwordSwitch = UISwitch()
         passwordSwitch.isOn = false
-        passwordSwitch.onTintColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
+        passwordSwitch.onTintColor = UIColor(named: "labelTextColor")
         return passwordSwitch
     }()
     
@@ -111,14 +111,14 @@ class RegisterViewController: UIViewController {
         let label = UILabel()
         label.text = "Tap to show password"
         label.font = .systemFont(ofSize: 10, weight: .semibold)
-        label.textColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
+        label.textColor = UIColor(named: "labelTextColor")
         return label
     }()
     
     private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "person.crop.circle")
-        imageView.tintColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
+        imageView.tintColor = UIColor(named: "labelTextColor")
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
         return imageView
@@ -126,13 +126,13 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "backgroundColor")
         self.hideKeyboardWhenTappedAround()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        navigationController?.navigationBar.tintColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
+        navigationController?.navigationBar.tintColor = UIColor(named: "textColor")
         
         
         // add target
@@ -140,9 +140,10 @@ class RegisterViewController: UIViewController {
                                  action: #selector(passwordSwitchToggled),
                                  for: .touchUpInside)
         registerInButton.addTarget(self,
-                              action: #selector(loginButtonTapped),
+                              action: #selector(registerButtonTapped),
                               for: .touchUpInside)
-        
+        firstNameField.delegate = self
+        lastNameField.delegate = self
         emailField.delegate = self
         passwordField.delegate = self
         
@@ -257,7 +258,7 @@ class RegisterViewController: UIViewController {
                                  height: 52)
     }
     
-    @objc func loginButtonTapped() {
+    @objc func registerButtonTapped() {
         emailField.resignFirstResponder()
         passwordField.resignFirstResponder()
         firstNameField.resignFirstResponder()
@@ -360,11 +361,15 @@ class RegisterViewController: UIViewController {
 extension RegisterViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool { // when user tap RETURN/ENTER key
-        
-        if textField == emailField {
+
+        if textField == firstNameField {
+            lastNameField.becomeFirstResponder()
+        } else if textField == lastNameField {
+            emailField.becomeFirstResponder()
+        } else if textField == emailField {
             passwordField.becomeFirstResponder()
         } else if textField == passwordField {
-            loginButtonTapped()
+            registerButtonTapped()
         }
         
         return true

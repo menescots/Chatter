@@ -12,58 +12,6 @@ import SDWebImage
 import AVFoundation
 import AVKit
 
-struct Message: MessageType {
-    public var sender: SenderType
-    public var messageId: String
-    public var sentDate: Date
-    public var kind: MessageKind
-}
-
-extension MessageKind {
-    var messageKindString: String {
-        switch self {
-        case .text(_):
-            return "text"
-        case .attributedText(_):
-            return "attributed text"
-        case .photo(_):
-            return "photo"
-        case .video(_):
-            return "video"
-        case .location(_):
-            return "location"
-        case .emoji(_):
-            return "emoji"
-        case .audio(_):
-            return "audio"
-        case .contact(_):
-            return "contact"
-        case .linkPreview(_):
-            return "link preview"
-        case .custom(_):
-            return "custom"
-        }
-    }
-}
-
-struct Sender: SenderType {
-    public var photoURL: String
-    public var senderId: String
-    public var displayName: String
-}
-
-struct Media: MediaItem {
-    var url: URL?
-    var image: UIImage?
-    var placeholderImage: UIImage
-    var size: CGSize
-}
-
-struct Location: LocationItem {
-    var location: CLLocation
-    var size: CGSize
-}
-
 class ChatViewController: MessagesViewController {
     
     private var senderphotoUrl: URL?
@@ -129,6 +77,8 @@ class ChatViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = UIColor(named: "textColor")
+        messagesCollectionView.backgroundColor = UIColor(named: "backgroundColor")
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
@@ -360,9 +310,9 @@ extension ChatViewController: MessageCellDelegate {
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
             let sender = message.sender
             if sender.senderId == selfSender?.senderId {
-                return UIColor(named: "testColor")!
+                return UIColor(named: "tabbarColor")!
             } else {
-                return UIColor.lightGray
+                return UIColor(named: "recipientColor")!
             }
         }
         
@@ -434,6 +384,7 @@ extension ChatViewController: MessageCellDelegate {
             }
             let vc = AVPlayerViewController()
             vc.player = AVPlayer(url: videoUrl)
+            vc.player?.play()
             present(vc, animated: true)
         default:
             break
@@ -505,26 +456,28 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
                     print("Message photo upload error: \(error)")
                 }
             })
-            //FIXME: problem with downloading url video
         } else if let videoUrl = info[.mediaURL] as? URL {
-            print("you want do send video \(videoUrl)")
             let randomString = UUID().uuidString
-            let fileName = "photo_message" + randomString + ".MOV"
+            let fileName = "video_message" + randomString + ".mov"
+            
             StorageManager.shared.uploadMessageVideoToSend(with: videoUrl, fileName: fileName, completion: { [weak self] result in
                 
-                print("RESULT OF SENDING VIDEO \(result)")
                 guard let strongSelf = self else {
                     return
                 }
                 
                 switch result {
                 case .success(let urlString):
-
+                    
                     guard let url = URL(string: urlString),
                           let placeholder = UIImage(systemName: "photo") else {
                         return
                     }
-                    let media = Media(url: url, image: nil, placeholderImage: placeholder, size: .zero)
+                    
+                    let media = Media(url: url,
+                                      image: nil,
+                                      placeholderImage: placeholder,
+                                      size: .zero)
                     let message = Message(sender: selfSender,
                                           messageId: messageID,
                                           sentDate: Date(),

@@ -9,20 +9,7 @@ import UIKit
 import FirebaseAuth
 import JGProgressHUD
 
-struct Conversation {
-    let id: String
-    let name: String
-    let otherUserEmail: String
-    let latestMessage: LatestMessage
-}
-
-struct LatestMessage {
-    let message: String
-    let date: String
-    let isRead: Bool
-}
-
-class ConversationsViewController: UIViewController {
+final class ConversationsViewController: UIViewController {
     private let spinner = JGProgressHUD(style: .dark)
     
     private var conversations = [Conversation]()
@@ -39,7 +26,7 @@ class ConversationsViewController: UIViewController {
         let label = UILabel()
         label.text = "No conversations."
         label.textAlignment = .center
-        label.textColor = UIColor.label
+        label.textColor = UIColor(named: "textColor")
         label.font = .systemFont(ofSize: 21, weight: .medium)
         label.isHidden = true
         return label
@@ -49,6 +36,7 @@ class ConversationsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.tintColor = UIColor(named: "textColor")
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose,
                                                             target: self,
                                                             action: #selector(didTapComposeButton))
@@ -56,12 +44,10 @@ class ConversationsViewController: UIViewController {
         view.addSubview(noConversationLabel)
         setUpTableView()
         startListeningForConversations()
-        
         loginObserver = NotificationCenter.default.addObserver(forName: .didLogInNotification, object: nil, queue: .main, using: { [weak self] _ in
             guard let strongSelf = self else {
                 return
             }
-            
             strongSelf.startListeningForConversations()
         })
     }
@@ -79,17 +65,16 @@ class ConversationsViewController: UIViewController {
         DatabaseManager.shared.getAllConversations(for: currentUserSafeEmail, completion: { [weak self] result in
             switch result {
             case .success(let conversations):
-                print("IN SUCCESS")
                 guard !conversations.isEmpty else {
                     self?.tableView.isHidden = true
                     self?.noConversationLabel.isHidden = false
                     return
                 }
                 self?.noConversationLabel.isHidden = true
+                self?.tableView.backgroundColor = UIColor(named: "backgroundColor")
                 self?.tableView.isHidden = false
                 self?.conversations = conversations
                 DispatchQueue.main.async {
-                    print("reloading convo")
                     self?.tableView.reloadData()
                 }
                 
@@ -166,7 +151,6 @@ class ConversationsViewController: UIViewController {
             let vc = LoginViewController()
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen
-            nav.navigationBar.tintColor = .systemBackground
             
             present(nav, animated: true)
         }
@@ -186,6 +170,9 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = conversations[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier, for: indexPath) as! ConversationTableViewCell
+        cell.contentView.backgroundColor = UIColor(named: "backgroundColor")
+        tableView.separatorStyle = .singleLine
+        tableView.separatorColor = UIColor(named: "tabbarColor")
         cell.configure(with: model)
         
         return cell
@@ -219,8 +206,11 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
             tableView.deleteRows(at: [indexPath], with: .fade)
             
             DatabaseManager.shared.deleteConversations(withID: conversationID, completion: { success in
-                if success {
-                print("succes deleting convo")
+                if !success {
+                    let ac = UIAlertController(title: "Failed to delete", message: nil, preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "Ok", style: .default))
+                    ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                    self.present(ac, animated: true)
                 }
             })
             tableView.endUpdates()

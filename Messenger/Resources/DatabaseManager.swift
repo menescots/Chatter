@@ -13,12 +13,15 @@ import CoreMedia
 import SwiftUI
 import MessageKit
 import CoreLocation
-
+import AVFoundation
+///Manager object ro read and write data to real time firebase database
 final class DatabaseManager {
-    
-    static let shared = DatabaseManager()
+    ///Shared instance of class
+    public static let shared = DatabaseManager()
     
     private let database = Database.database().reference()
+    
+    private init() {}
     
     static func safeEmail(emailAdress: String) -> String {
         var safeEmail = emailAdress.replacingOccurrences(of: ".", with: "_")
@@ -27,9 +30,8 @@ final class DatabaseManager {
     }
 }
 
-// MARK: - account management
-
 extension DatabaseManager {
+    ///Returns dictionary node at child path
     public func getDataFor(path: String, completion: @escaping (Result<Any, Error>) -> Void){
         database.child("\(path)").observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value else {
@@ -43,6 +45,7 @@ extension DatabaseManager {
 }
 
 extension DatabaseManager {
+    ///Checks if user exists for given email
     public func userExists(with email: String,
                            completion: @escaping ((Bool) -> Void)) {
         // completion handlers stand for: Do stuff when things have been done
@@ -62,7 +65,7 @@ extension DatabaseManager {
         
         
     }
-    
+    ///Inserts user to friebase database
     public func insertUser(with user: ChatAppUser, completion: @escaping (Bool) -> Void) {
         database.child(user.safeEmail).setValue([ // key of user is email
             "first_name": user.firstName,
@@ -112,7 +115,7 @@ extension DatabaseManager {
                 })
             })
         }
-    
+    ///Gets all user from firebase database
     public func getAllUsers(completion: @escaping (Result<[[String: String]], Error>) -> Void) {
         database.child("users").observeSingleEvent(of: .value, with: { snapshot in
             guard let value = snapshot.value as? [[String: String]] else {
@@ -336,11 +339,11 @@ extension DatabaseManager {
     
     public func getAllConversations(for email: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
         database.child("\(email)/conversation").observe(.value, with: { snapshot in
+            
             guard let value = snapshot.value as? [[String: Any]] else {
                 completion(.failure(DatabaseErrors.failedToFetch))
                 return
             }
-            print(value)
             let conversation: [Conversation] = value.compactMap({ dictionary in
                 guard let conversationID = dictionary["id"] as? String,
                       let name = dictionary["name"] as? String,
@@ -387,7 +390,6 @@ extension DatabaseManager {
                 var kind: MessageKind?
                 
                 if type == "photo" {
-                    print("type photo")
                     guard let imageUrl = URL(string: content),
                           let placeholder = UIImage(systemName: "photo") else {
                             return nil
@@ -396,18 +398,17 @@ extension DatabaseManager {
                     let media = Media(url: imageUrl,
                                       image: nil,
                                       placeholderImage: placeholder,
-                                      size: CGSize(width: 300, height: 300))
+                                      size: CGSize(width: 300, height: 200))
                     kind = .photo(media)
                 } else if type == "video" {
                     guard let videoUrl = URL(string: content),
-                          let placeholder = UIImage(systemName: "play.circle") else {
+                          let placeholder = UIImage(named: "placeholder") else {
                             return nil
                     }
-                    
                     let media = Media(url: videoUrl,
                                       image: nil,
                                       placeholderImage: placeholder,
-                                      size: CGSize(width: 300, height: 300))
+                                      size: CGSize(width: 300, height: 200))
                     kind = .video(media)
                 } else if type == "location" {
                     let locationComponens = content.components(separatedBy: ",")

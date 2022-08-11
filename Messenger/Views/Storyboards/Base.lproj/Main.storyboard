@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Yk-31-3gx">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Chats" id="Ga0-Nr-1UE"/>
                 </viewController>
@@ -30,10 +30,13 @@
         <scene sceneID="Sid-Uf-E6d">
             <objects>
                 <tabBarController id="1Yk-31-3gx" customClass="TabBarVCViewController" customModule="Messenger" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nMN-BE-cc0">
+                    <tabBar key="tabBar" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" id="nMN-BE-cc0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <tabBarAppearance key="scrollEdgeAppearance" backgroundEffect="regular" backgroundImageContentMode="center" stackedItemPositioning="automatic"/>
+                        <color key="tintColor" name="tabbarColor"/>
+                        <tabBarAppearance key="scrollEdgeAppearance" backgroundEffect="regular" backgroundImageContentMode="center" stackedItemPositioning="automatic">
+                            <color key="backgroundColor" name="tabbarColor"/>
+                        </tabBarAppearance>
                     </tabBar>
                     <connections>
                         <segue destination="Sr8-iM-bpH" kind="relationship" relationship="viewControllers" id="LDA-XT-YSg"/>
@@ -51,7 +54,7 @@
                     <tabBarItem key="tabBarItem" title="" id="3bL-0K-DNB">
                         <imageReference key="image" image="message.fill" catalog="system" symbolScale="large" renderingMode="hierarchical-single">
                             <hierarchicalColors>
-                                <color red="0.93623572590000004" green="0.62022876739999999" blue="0.78040546180000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color name="labelTextColor"/>
                                 <color systemColor="secondaryLabelColor"/>
                                 <color systemColor="tertiaryLabelColor"/>
                             </hierarchicalColors>
@@ -61,9 +64,10 @@
                     <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" largeTitles="YES" id="bp2-Bu-vPF">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
                         <color key="tintColor" name="label"/>
                         <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" red="0.59996584630000005" green="0.39920023789999998" blue="0.50569784920000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="textColor" name="labelTextColor"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -82,8 +86,8 @@
                     <tabBarItem key="tabBarItem" title="" id="yze-B4-FiG">
                         <imageReference key="image" image="person.fill" catalog="system" symbolScale="large" renderingMode="hierarchical-single">
                             <hierarchicalColors>
-                                <color red="0.93623572590000004" green="0.62022876739999999" blue="0.78040546180000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color systemColor="secondaryLabelColor"/>
+                                <color name="labelTextColor"/>
+                                <color name="labelTextColor"/>
                                 <color systemColor="tertiaryLabelColor"/>
                             </hierarchicalColors>
                         </imageReference>
@@ -91,9 +95,10 @@
                     <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" largeTitles="YES" id="lzj-Fx-YD6">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
                         <color key="tintColor" name="label"/>
                         <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" red="0.69135507910000005" green="0.46000803829999998" blue="0.58272779799999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="textColor" name="labelTextColor"/>
                         </textAttributes>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uFW-yD-OwP">
@@ -118,11 +123,13 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Rbq-es-YsQ">
                                 <rect key="frame" x="0.0" y="140" width="414" height="502"/>
+                                <color key="backgroundColor" name="backgroundColor"/>
                                 <color key="separatorColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" name="backgroundColor"/>
                             </tableView>
                             <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgw-S1-aa6" customClass="MyButton" customModule="Messenger" customModuleProvider="target">
                                 <rect key="frame" x="140" y="679" width="134" height="41"/>
-                                <color key="backgroundColor" red="0.69135507910000005" green="0.46000803829999998" blue="0.58272779799999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" name="labelTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="41" id="aHx-a3-Ivv"/>
                                 </constraints>
@@ -138,7 +145,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Zaf-fl-MYK"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
                             <constraint firstItem="bgw-S1-aa6" firstAttribute="top" secondItem="Rbq-es-YsQ" secondAttribute="bottom" constant="37" id="2ih-sa-ag0"/>
                             <constraint firstItem="Zaf-fl-MYK" firstAttribute="bottom" secondItem="bgw-S1-aa6" secondAttribute="bottom" constant="44" id="4Ep-hT-RJk"/>
@@ -164,18 +171,27 @@
             <size key="intrinsicContentSize" width="75.5" height="31"/>
         </designable>
     </designables>
-    <color key="tintColor" red="0.69135507911142668" green="0.46000803833027704" blue="0.58272779801583474" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+    <color key="tintColor" name="textColor"/>
     <resources>
         <image name="message.fill" catalog="system" width="128" height="113"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <namedColor name="backgroundColor">
+            <color red="0.97189611196517944" green="0.95560318231582642" blue="0.93893390893936157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="label">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
+        <namedColor name="labelTextColor">
+            <color red="0.73333333333333328" green="0.60784313725490191" blue="0.69019607843137254" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="tabbarColor">
+            <color red="0.76676452159881592" green="0.73725491762161255" blue="0.73725491762161255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textColor">
+            <color red="0.10980392156862745" green="0.11372549019607843" blue="0.12941176470588237" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>

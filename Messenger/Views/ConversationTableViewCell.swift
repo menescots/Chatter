@@ -16,20 +16,22 @@ class ConversationTableViewCell: UITableViewCell {
     private let userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 40
+        imageView.layer.cornerRadius = 37.5
         imageView.layer.masksToBounds = true
         return imageView
     }()
     
     private let userNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 21, weight: .semibold)
+        label.font = .systemFont(ofSize: 19, weight: .semibold)
+        label.textColor = UIColor(named: "textColor")
         return label
     }()
     
     private let userMessageLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 19, weight: .regular)
+        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.textColor = UIColor(named: "textColor")
         label.numberOfLines = 0
         return label
     }()
@@ -49,18 +51,18 @@ class ConversationTableViewCell: UITableViewCell {
         super.layoutSubviews()
         
         userImageView.frame = CGRect(x: 10,
-                                     y: 10,
-                                     width: 80,
-                                     height: 80)
+                                     y: 13,
+                                     width: 75,
+                                     height: 75)
         
-        userNameLabel.frame = CGRect(x: userImageView.right + 10,
+        userNameLabel.frame = CGRect(x: userImageView.right + 13,
                                      y: 10,
                                      width: contentView.width-20-userImageView.width,
-                                     height: (contentView.height-15)/2)
+                                     height: (contentView.height-30)/2)
         
-        userMessageLabel.frame = CGRect(x: userImageView.right + 10,
-                                        y: userNameLabel.bottom+5,
-                                     width: contentView.width-20-userImageView.width,
+        userMessageLabel.frame = CGRect(x: userImageView.right + 13,
+                                        y: userNameLabel.bottom+2,
+                                     width: contentView.width-50-userImageView.width,
                                      height: (contentView.height-10)/2)
     }
     

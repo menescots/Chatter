@@ -9,17 +9,7 @@ import UIKit
 import FBSDKLoginKit
 import SDWebImage
 
-enum ProfileViewModelType {
-    case name, email
-}
-
-struct ProfileViewModel {
-    let profileViewModelType: ProfileViewModelType
-    let title: String
-    let handler: (() -> Void)?
-}
-
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
     var data = [ProfileViewModel]()
@@ -27,7 +17,7 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = UIColor(named: "backgroundColor")
         tableView.register(ProfileTableViewCell.self,
                            forCellReuseIdentifier: ProfileTableViewCell.identifier)
         
@@ -41,14 +31,15 @@ class ProfileViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = UIColor(named: "backgroundColor")
         tableView.tableHeaderView = createTableHeader()
     }
-    
     @IBAction func logOutButton(_ sender: Any) {
         UserDefaults.standard.setValue(nil, forKey: "email")
         UserDefaults.standard.setValue(nil, forKey: "name")
         UserDefaults.standard.setValue(nil, forKey: "profile_picture_url")
         logOutUser()
+        tableView.reloadData()
     }
     
    @objc func logOutUser() {
@@ -70,7 +61,7 @@ class ProfileViewController: UIViewController {
                 let vc = LoginViewController()
                 let nav = UINavigationController(rootViewController: vc)
                 nav.modalPresentationStyle = .fullScreen
-                nav.navigationBar.tintColor = .systemBackground
+                nav.navigationBar.tintColor = UIColor(named: "backgroundColor")
                 
                 strongSelf.present(nav, animated: true)
             } catch {
@@ -92,8 +83,8 @@ class ProfileViewController: UIViewController {
         let headerView = UIView(frame: CGRect(x: 0,
                                         y: 0,
                                         width: self.view.width,
-                                        height: 300))
-        headerView.backgroundColor = .systemBackground
+                                        height: 250))
+        headerView.backgroundColor = UIColor(named: "backgroundColor")
         
         let imageView = UIImageView(frame: CGRect(x: (headerView.width-150)/2,
                                                   y: 75,
@@ -101,8 +92,6 @@ class ProfileViewController: UIViewController {
                                                   height: 150))
     
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.layer.borderWidth = 3
         imageView.layer.cornerRadius = imageView.frame.size.width/2
         imageView.layer.masksToBounds = true
         headerView.addSubview(imageView)
@@ -126,7 +115,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let viewModel = data[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: ProfileTableViewCell.identifier, for: indexPath) as! ProfileTableViewCell
-        
+        cell.contentView.backgroundColor = UIColor(named: "backgroundColor")
         cell.setUp(with: viewModel)
         return cell
     }
@@ -145,11 +134,11 @@ class ProfileTableViewCell: UITableViewCell {
         textLabel?.text = viewModel.title
         switch viewModel.profileViewModelType {
         case .name:
-            textLabel?.textColor = UIColor.label
+            textLabel?.textColor = UIColor(named: "textColor")
             textLabel?.textAlignment = .center
             textLabel?.font = UIFont.systemFont(ofSize: 30)
         case .email:
-            textLabel?.textColor = UIColor.label
+            textLabel?.textColor = UIColor(named: "textColor")
             textLabel?.textAlignment = .center
             textLabel?.font = UIFont.systemFont(ofSize: 15)
         }

@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
     private let passwordSwitch: UISwitch = {
        let passwordSwitch = UISwitch()
         passwordSwitch.isOn = false
-        passwordSwitch.onTintColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
+        passwordSwitch.onTintColor = UIColor(named: "labelTextColor")
         return passwordSwitch
     }()
     
@@ -30,7 +30,7 @@ class LoginViewController: UIViewController {
         let label = UILabel()
         label.text = "Tap to show password"
         label.font = .systemFont(ofSize: 10, weight: .semibold)
-        label.textColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
+        label.textColor = UIColor(named: "labelTextColor")
         return label
     }()
     
@@ -70,7 +70,7 @@ class LoginViewController: UIViewController {
     private let logInButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
-        button.backgroundColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
+        button.backgroundColor = UIColor(named: "labelTextColor")
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
@@ -81,7 +81,7 @@ class LoginViewController: UIViewController {
     private let pushToRegisterButton: UIButton = {
         let button = UIButton()
         button.setTitle("Register", for: .normal)
-        button.backgroundColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
+        button.backgroundColor = UIColor(named: "labelTextColor")
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
@@ -92,7 +92,7 @@ class LoginViewController: UIViewController {
     private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "message")
-        imageView.tintColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
+        imageView.tintColor = UIColor(named: "labelTextColor")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -105,14 +105,20 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "backgroundColor")
         
         self.hideKeyboardWhenTappedAround()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardAppear),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardDisappear),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
         
-        navigationController?.navigationBar.tintColor = UIColor(red: 214/255, green: 149/255, blue: 180/255, alpha: 1)
+        navigationController?.navigationBar.tintColor = UIColor(named: "textColor")
         
         // add target
         logInButton.addTarget(self,

@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 extension UIView {
-    //helpers to not repaet yourself
     public var width: CGFloat {
         return frame.size.width
     }
@@ -36,5 +35,4 @@ extension UIView {
 }
 extension Notification.Name {
     static let didLogInNotification = Notification.Name("didLogInNotification")
-    
 }
