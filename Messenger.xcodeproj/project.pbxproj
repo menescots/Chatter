@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		725531016885899745BE80BB /* Pods_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8C01F7A997421367289163 /* Pods_Messenger.framework */; };
-		7E075BFA289BE19100CBBC57 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E075BF9289BE19100CBBC57 /* UIButtonExtension.swift */; };
 		7E075C03289BF5F800CBBC57 /* TabBarVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E075C02289BF5F800CBBC57 /* TabBarVCViewController.swift */; };
 		7E22DF0C28781BC300C7A91C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22DF0B28781BC300C7A91C /* Extensions.swift */; };
 		7E4D6ECE28A2529A00117C65 /* keyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4D6ECD28A2529A00117C65 /* keyboardExtension.swift */; };
@@ -38,7 +37,6 @@
 
 /* Begin PBXFileReference section */
 		31BBDDB7F1841FCEAD590AFD /* Pods-Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.debug.xcconfig"; path = "Target Support Files/Pods-Messenger/Pods-Messenger.debug.xcconfig"; sourceTree = "<group>"; };
-		7E075BF9289BE19100CBBC57 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		7E075C02289BF5F800CBBC57 /* TabBarVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVCViewController.swift; sourceTree = "<group>"; };
 		7E22DF0B28781BC300C7A91C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7E4D6ECD28A2529A00117C65 /* keyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboardExtension.swift; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 				7E22DF0B28781BC300C7A91C /* Extensions.swift */,
 				7EA2D13C287C41C2002D4A37 /* DatabaseManager.swift */,
 				7EAD705128804AFC004F995F /* StorageManager.swift */,
-				7E075BF9289BE19100CBBC57 /* UIButtonExtension.swift */,
 				7E075C02289BF5F800CBBC57 /* TabBarVCViewController.swift */,
 				7E4D6ECD28A2529A00117C65 /* keyboardExtension.swift */,
 			);
@@ -333,7 +330,6 @@
 				7E8F6A38287703AF0025F3D8 /* ConversationsViewController.swift in Sources */,
 				7E8F6A34287703AE0025F3D8 /* AppDelegate.swift in Sources */,
 				7E22DF0C28781BC300C7A91C /* Extensions.swift in Sources */,
-				7E075BFA289BE19100CBBC57 /* UIButtonExtension.swift in Sources */,
 				7E8F6A36287703AE0025F3D8 /* SceneDelegate.swift in Sources */,
 				7E8F6A5828770A870025F3D8 /* ProfileViewController.swift in Sources */,
 				7ED82F4128A4F8E9002F16E3 /* ChatModels.swift in Sources */,

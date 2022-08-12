@@ -13,8 +13,8 @@ final class ProfileViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
     var data = [ProfileViewModel]()
+    @IBOutlet var logoutButton: UIButton!
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "backgroundColor")
@@ -27,7 +27,7 @@ final class ProfileViewController: UIViewController {
         data.append(ProfileViewModel(profileViewModelType: .email,
                                      title: UserDefaults.standard.value(forKey: "email") as? String ?? "No email",
                                      handler: nil))
-        
+        logoutButton.layer.cornerRadius = 20
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self

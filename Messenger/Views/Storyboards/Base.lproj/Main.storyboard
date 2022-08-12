@@ -124,21 +124,19 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Rbq-es-YsQ">
                                 <rect key="frame" x="0.0" y="140" width="414" height="502"/>
                                 <color key="backgroundColor" name="backgroundColor"/>
+                                <color key="tintColor" name="backgroundColor"/>
                                 <color key="separatorColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" name="backgroundColor"/>
                             </tableView>
-                            <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgw-S1-aa6" customClass="MyButton" customModule="Messenger" customModuleProvider="target">
-                                <rect key="frame" x="140" y="679" width="134" height="41"/>
+                            <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgw-S1-aa6">
+                                <rect key="frame" x="140" y="688" width="134" height="41"/>
                                 <color key="backgroundColor" name="labelTextColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="41" id="aHx-a3-Ivv"/>
+                                    <constraint firstAttribute="height" constant="41" id="xuB-80-X12"/>
                                 </constraints>
-                                <color key="tintColor" red="0.92202021231658726" green="0.83722165285041239" blue="0.95276088070658138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Log Out"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="logOutButton:" destination="8yZ-Lo-c2q" eventType="touchUpInside" id="v05-Ns-tpM"/>
                                 </connections>
@@ -147,17 +145,18 @@
                         <viewLayoutGuide key="safeArea" id="Zaf-fl-MYK"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstItem="bgw-S1-aa6" firstAttribute="top" secondItem="Rbq-es-YsQ" secondAttribute="bottom" constant="37" id="2ih-sa-ag0"/>
-                            <constraint firstItem="Zaf-fl-MYK" firstAttribute="bottom" secondItem="bgw-S1-aa6" secondAttribute="bottom" constant="44" id="4Ep-hT-RJk"/>
-                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="leading" secondItem="Zaf-fl-MYK" secondAttribute="leading" id="JSN-62-b1v"/>
-                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="centerX" secondItem="wee-EK-3vs" secondAttribute="centerX" id="TDE-UW-9DP"/>
-                            <constraint firstItem="bgw-S1-aa6" firstAttribute="leading" secondItem="Zaf-fl-MYK" secondAttribute="leading" constant="140" id="XB8-Yc-gIz"/>
-                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="centerX" secondItem="bgw-S1-aa6" secondAttribute="centerX" id="k3c-Rs-SX2"/>
-                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="top" secondItem="Zaf-fl-MYK" secondAttribute="top" id="lQP-jz-gfS"/>
+                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="leading" secondItem="Zaf-fl-MYK" secondAttribute="leading" id="34j-Jo-0BF"/>
+                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="centerX" secondItem="wee-EK-3vs" secondAttribute="centerX" id="Os0-nH-RtC"/>
+                            <constraint firstItem="Zaf-fl-MYK" firstAttribute="bottom" secondItem="bgw-S1-aa6" secondAttribute="bottom" constant="35" id="SXB-52-ONs"/>
+                            <constraint firstItem="bgw-S1-aa6" firstAttribute="top" secondItem="Rbq-es-YsQ" secondAttribute="bottom" constant="46" id="Ywl-a9-faP"/>
+                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="top" secondItem="Zaf-fl-MYK" secondAttribute="top" id="ah7-Md-vMz"/>
+                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="centerX" secondItem="bgw-S1-aa6" secondAttribute="centerX" id="eT7-PO-x1q"/>
+                            <constraint firstItem="bgw-S1-aa6" firstAttribute="leading" secondItem="Zaf-fl-MYK" secondAttribute="leading" constant="140" id="ywY-ew-3XA"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="SWv-Ok-4TM"/>
                     <connections>
+                        <outlet property="logoutButton" destination="bgw-S1-aa6" id="7YH-DU-Qp1"/>
                         <outlet property="tableView" destination="Rbq-es-YsQ" id="USy-Fg-S9z"/>
                     </connections>
                 </viewController>
@@ -166,11 +165,6 @@
             <point key="canvasLocation" x="298.55072463768118" y="983.70535714285711"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="bgw-S1-aa6">
-            <size key="intrinsicContentSize" width="75.5" height="31"/>
-        </designable>
-    </designables>
     <color key="tintColor" name="textColor"/>
     <resources>
         <image name="message.fill" catalog="system" width="128" height="113"/>
@@ -182,10 +176,10 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <namedColor name="labelTextColor">
-            <color red="0.73333333333333328" green="0.60784313725490191" blue="0.69019607843137254" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.48235297203063965" green="0.32941177487373352" blue="0.20000001788139343" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="tabbarColor">
-            <color red="0.76676452159881592" green="0.73725491762161255" blue="0.73725491762161255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.76676452159881592" green="0.73664700984954834" blue="0.73664700984954834" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textColor">
             <color red="0.10980392156862745" green="0.11372549019607843" blue="0.12941176470588237" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
