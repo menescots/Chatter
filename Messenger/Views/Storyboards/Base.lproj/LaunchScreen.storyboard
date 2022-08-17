@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -13,41 +13,42 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Chatter." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QW5-J3-53j">
-                                <rect key="frame" x="59" y="569" width="297" height="72"/>
+                                <rect key="frame" x="59" y="545" width="297" height="72"/>
                                 <fontDescription key="fontDescription" name="BodoniSvtyTwoOSITCTT-Bold" family="Bodoni 72 Oldstyle" pointSize="60"/>
                                 <color key="textColor" name="labelTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Welcome to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiB-Zd-1AQ">
-                                <rect key="frame" x="101" y="531" width="213" height="37"/>
+                                <rect key="frame" x="101" y="520" width="213" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="AeX-4L-WSI"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="BodoniSvtyTwoOSITCTT-Book" family="Bodoni 72 Oldstyle" pointSize="30"/>
                                 <color key="textColor" name="labelTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="message.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3Rg-kr-cX8">
-                                <rect key="frame" x="45" y="207.5" width="325" height="176"/>
+                                <rect key="frame" x="45" y="281" width="325" height="176.00000000000006"/>
                                 <color key="tintColor" name="labelTextColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="177" id="HE2-PW-bNs"/>
-                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstItem="3Rg-kr-cX8" firstAttribute="centerX" secondItem="TiB-Zd-1AQ" secondAttribute="centerX" id="0kF-ZP-7Wn"/>
-                            <constraint firstItem="3Rg-kr-cX8" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="4oV-I7-23f"/>
-                            <constraint firstItem="QW5-J3-53j" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="59" id="5Uw-2e-tkS"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="QW5-J3-53j" secondAttribute="bottom" constant="221" id="ELA-pe-uFD"/>
-                            <constraint firstItem="3Rg-kr-cX8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="45" id="Q7p-zM-RYC"/>
-                            <constraint firstItem="TiB-Zd-1AQ" firstAttribute="centerX" secondItem="QW5-J3-53j" secondAttribute="centerX" id="SR1-1p-GqG"/>
-                            <constraint firstItem="3Rg-kr-cX8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="163" id="r2m-9e-ZkY"/>
-                            <constraint firstItem="TiB-Zd-1AQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="101" id="wQj-kB-ghB"/>
-                            <constraint firstItem="QW5-J3-53j" firstAttribute="top" secondItem="TiB-Zd-1AQ" secondAttribute="bottom" constant="1" id="xI4-b3-Oov"/>
+                            <constraint firstItem="TiB-Zd-1AQ" firstAttribute="centerX" secondItem="QW5-J3-53j" secondAttribute="centerX" id="32A-kf-8VI"/>
+                            <constraint firstItem="3Rg-kr-cX8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="45" id="4MQ-yx-b4d"/>
+                            <constraint firstItem="3Rg-kr-cX8" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="6Si-v1-QuF"/>
+                            <constraint firstItem="QW5-J3-53j" firstAttribute="top" secondItem="3Rg-kr-cX8" secondAttribute="bottom" constant="87.666666666666629" id="Fas-o2-XQx"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="TiB-Zd-1AQ" secondAttribute="bottom" constant="179" id="FdT-IT-ahR"/>
+                            <constraint firstItem="3Rg-kr-cX8" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="ITf-VM-c8J"/>
+                            <constraint firstItem="TiB-Zd-1AQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="101" id="la8-gY-CxT"/>
+                            <constraint firstItem="QW5-J3-53j" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="59" id="q9A-wa-MP7"/>
+                            <constraint firstItem="TiB-Zd-1AQ" firstAttribute="top" secondItem="3Rg-kr-cX8" secondAttribute="bottom" constant="62.666666666666629" id="sop-sQ-6FL"/>
+                            <constraint firstItem="3Rg-kr-cX8" firstAttribute="centerX" secondItem="TiB-Zd-1AQ" secondAttribute="centerX" id="yic-8r-9Pn"/>
                         </constraints>
                     </view>
                 </viewController>

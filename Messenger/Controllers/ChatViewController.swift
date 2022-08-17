@@ -35,6 +35,7 @@ class ChatViewController: MessagesViewController {
         guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
             return nil
         }
+        print("current user email: \(currentUserEmail)")
         let currentUserSafeEmail = DatabaseManager.safeEmail(emailAdress: currentUserEmail)
         return Sender(photoURL: "",
                       senderId: currentUserSafeEmail,
@@ -56,6 +57,7 @@ class ChatViewController: MessagesViewController {
                 }
 
                 self?.messages = messages
+                print(messages)
                 DispatchQueue.main.async {
                     self?.messagesCollectionView.reloadDataAndKeepOffset()
 
@@ -222,7 +224,6 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         let messageID = createMessageID() else {
             return
         }
-
         let message = Message(sender: selfSender,
                               messageId: messageID,
                               sentDate: Date(),
@@ -232,7 +233,6 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
             //create conversation in db
             DatabaseManager.shared.createNewConversation(with: otherUserEmail, name: self.title ?? "User", firstMessage: message, completion: { [weak self] success in
                 if success {
-                    print("message sent")
                     self?.isNewConversation = false
                     let newConversationID = "conversation_\(message.messageId)".replacingOccurrences(of: "/", with: "_")
                     self?.conversationId = newConversationID
@@ -250,6 +250,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
             }
             DatabaseManager.shared.sendMessage(to: conversationId, otherUserEmail: otherUserEmail, name: name, newMessage: message, completion: { success in
                 if success {
+                    self.listenForMessages(id: conversationId, shouldScrollToBottom: true)
                     print("message sent")
                 } else {
                     print("failed to send message")

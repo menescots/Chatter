@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Yk-31-3gx">
-    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <device id="retina6_5" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -120,45 +120,10 @@
                     <view key="view" contentMode="scaleToFill" id="wee-EK-3vs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Rbq-es-YsQ">
-                                <rect key="frame" x="0.0" y="140" width="414" height="502"/>
-                                <color key="backgroundColor" name="backgroundColor"/>
-                                <color key="tintColor" name="backgroundColor"/>
-                                <color key="separatorColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="sectionIndexBackgroundColor" name="backgroundColor"/>
-                            </tableView>
-                            <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgw-S1-aa6">
-                                <rect key="frame" x="140" y="688" width="134" height="41"/>
-                                <color key="backgroundColor" name="labelTextColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="41" id="xuB-80-X12"/>
-                                </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Log Out"/>
-                                <connections>
-                                    <action selector="logOutButton:" destination="8yZ-Lo-c2q" eventType="touchUpInside" id="v05-Ns-tpM"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Zaf-fl-MYK"/>
                         <color key="backgroundColor" name="backgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="leading" secondItem="Zaf-fl-MYK" secondAttribute="leading" id="34j-Jo-0BF"/>
-                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="centerX" secondItem="wee-EK-3vs" secondAttribute="centerX" id="Os0-nH-RtC"/>
-                            <constraint firstItem="Zaf-fl-MYK" firstAttribute="bottom" secondItem="bgw-S1-aa6" secondAttribute="bottom" constant="35" id="SXB-52-ONs"/>
-                            <constraint firstItem="bgw-S1-aa6" firstAttribute="top" secondItem="Rbq-es-YsQ" secondAttribute="bottom" constant="46" id="Ywl-a9-faP"/>
-                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="top" secondItem="Zaf-fl-MYK" secondAttribute="top" id="ah7-Md-vMz"/>
-                            <constraint firstItem="Rbq-es-YsQ" firstAttribute="centerX" secondItem="bgw-S1-aa6" secondAttribute="centerX" id="eT7-PO-x1q"/>
-                            <constraint firstItem="bgw-S1-aa6" firstAttribute="leading" secondItem="Zaf-fl-MYK" secondAttribute="leading" constant="140" id="ywY-ew-3XA"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="SWv-Ok-4TM"/>
-                    <connections>
-                        <outlet property="logoutButton" destination="bgw-S1-aa6" id="7YH-DU-Qp1"/>
-                        <outlet property="tableView" destination="Rbq-es-YsQ" id="USy-Fg-S9z"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4UN-h8-YTc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

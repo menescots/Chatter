@@ -29,7 +29,7 @@ class RegisterViewController: UIViewController {
         
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0)) //
         field.leftViewMode = .always                                 // setting text in uifield to be 5px away from left
-        field.backgroundColor = .secondarySystemBackground
+        field.backgroundColor = UIColor(named: "backgroundColor")
         return field
     }()
     
@@ -45,7 +45,7 @@ class RegisterViewController: UIViewController {
         
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0)) //
         field.leftViewMode = .always                                 // setting text in uifield to be 5px away from left
-        field.backgroundColor = .secondarySystemBackground
+        field.backgroundColor = UIColor(named: "backgroundColor")
         return field
     }()
     private let emailField: UITextField = {
@@ -60,7 +60,7 @@ class RegisterViewController: UIViewController {
         
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0)) //
         field.leftViewMode = .always                                 // setting text in uifield to be 5px away from left
-        field.backgroundColor = .secondarySystemBackground
+        field.backgroundColor = UIColor(named: "backgroundColor")
         return field
     }()
     
@@ -77,7 +77,7 @@ class RegisterViewController: UIViewController {
         
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0)) //
         field.leftViewMode = .always                                 // setting text in uifield to be 5px away from left
-        field.backgroundColor = .secondarySystemBackground
+        field.backgroundColor = UIColor(named: "backgroundColor")
         return field
     }()
     
@@ -307,8 +307,8 @@ class RegisterViewController: UIViewController {
                     return
                 }
                 
-                UserDefaults.standard.setValue(email, forKey: "email")
-                UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
+                UserDefaults.standard.set(email, forKey: "email")
+                UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
                 
                 let chatUser = ChatAppUser(firstName: firstName,
                                            lastName: lastName,

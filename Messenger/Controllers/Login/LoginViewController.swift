@@ -46,7 +46,7 @@ class LoginViewController: UIViewController {
         
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0)) //
         field.leftViewMode = .always                                 // setting text in uifield to be 5px away from left
-        field.backgroundColor = .secondarySystemBackground
+        field.backgroundColor = UIColor(named: "backgroundColor")
         return field
     }()
     
@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
         
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0)) //
         field.leftViewMode = .always                                 // setting text in uifield to be 5px away from left
-        field.backgroundColor = .secondarySystemBackground
+        field.backgroundColor = UIColor(named: "backgroundColor")
         return field
     }()
     
@@ -103,9 +103,20 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    private var loginObserver: NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "backgroundColor")
+        
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLogInNotification, object: nil, queue: .main, using: { [weak self] _ in
+            guard let strongSelf = self else {
+                return
+            }
+
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+        })
+
         
         self.hideKeyboardWhenTappedAround()
         NotificationCenter.default.addObserver(self,
@@ -145,6 +156,12 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(showPasswordLabel)
         scrollView.addSubview(fbLoginButton)
     }
+    
+    deinit {
+         if let observer = loginObserver {
+             NotificationCenter.default.removeObserver(observer)
+         }
+     }
     
     @objc func keyboardAppear(notification:NSNotification) {
         if !isExpand{
@@ -251,6 +268,7 @@ class LoginViewController: UIViewController {
             let user = result.user
             
             let currentUserSafeEmail = DatabaseManager.safeEmail(emailAdress: email)
+            
             DatabaseManager.shared.getDataFor(path: currentUserSafeEmail, completion: { result in
                 switch result {
                 case .success(let data):
@@ -261,12 +279,13 @@ class LoginViewController: UIViewController {
                     }
                     UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
                     
+                    NotificationCenter.default.post(name: .didLogInNotification, object: nil)
+                    print("in case success \(UserDefaults.standard.value(forKey: "name"))")
                 case .failure(let error):
                     print("failed to read data with error: \(error)")
                 }
             })
             UserDefaults.standard.set(email, forKey: "email")
-            print("Logged in: \(user)")
             self?.navigationController?.dismiss(animated: true, completion: nil)
         })
     }
