@@ -33,13 +33,9 @@ Simple real time chat app written in Swift 5 using Firebase
 - Deleting Conversations
 - User Profile
 
-<br>
-
 ## Requirements
 1. [Xcode](https://developer.apple.com/xcode/)
 2. [CocoaPods](http://cocoapods.org/)
-
-<br>
 
 ## Set Up
 Clone GitHub repository
