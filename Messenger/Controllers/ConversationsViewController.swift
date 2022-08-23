@@ -36,7 +36,6 @@ final class ConversationsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.tintColor = UIColor(named: "textColor")
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose,
                                                             target: self,
                                                             action: #selector(didTapComposeButton))
@@ -45,26 +44,27 @@ final class ConversationsViewController: UIViewController {
         setUpTableView()
         startListeningForConversations()
         loginObserver = NotificationCenter.default.addObserver(forName: .didLogInNotification, object: nil, queue: .main, using: { [weak self] _ in
+            print("weak self")
             guard let strongSelf = self else {
                 return
             }
+            print("inside observer")
             strongSelf.startListeningForConversations()
         })
     }
     
     private func startListeningForConversations(){
         guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+            print("no user for email")
             return
         }
+        print("listening for confo for user: \(UserDefaults.standard.value(forKey: "email"))")
+        
         let currentUserSafeEmail = DatabaseManager.safeEmail(emailAdress: currentUserEmail)
-        
-        if let loginObserver = loginObserver {
-            NotificationCenter.default.removeObserver(loginObserver)
-        }
-        
         DatabaseManager.shared.getAllConversations(for: currentUserSafeEmail, completion: { [weak self] result in
             switch result {
             case .success(let conversations):
+                print("geting all convo for \(currentUserSafeEmail)")
                 guard !conversations.isEmpty else {
                     self?.tableView.isHidden = true
                     self?.noConversationLabel.isHidden = false

@@ -339,7 +339,7 @@ extension DatabaseManager {
     
     public func getAllConversations(for email: String, completion: @escaping (Result<[Conversation], Error>) -> Void) {
         database.child("\(email)/conversation").observe(.value, with: { snapshot in
-            
+
             guard let value = snapshot.value as? [[String: Any]] else {
                 completion(.failure(DatabaseErrors.failedToFetch))
                 return
@@ -364,7 +364,6 @@ extension DatabaseManager {
                                     otherUserEmail: otherUserEmail,
                                     latestMessage: latestMessageObject)
             })
-            
             completion(.success(conversation))
         })
     }
@@ -495,7 +494,7 @@ extension DatabaseManager {
                 completion(false)
                 return
             }
-            
+            print("dbmanager current user: \(currentUserEmail)")
             let currentUserSafeEmail = DatabaseManager.safeEmail(emailAdress: currentUserEmail)
             let messageId = newMessage.messageId
             let safeMessageId = messageId.replacingOccurrences(of: "/", with: "_")
@@ -574,6 +573,7 @@ extension DatabaseManager {
                         
                         ///Update latest message for recipient user
                         let otherUserSafeEmail = DatabaseManager.safeEmail(emailAdress: otherUserEmail)
+                        print("dbmanager recipient email: \(otherUserSafeEmail)")
                         strongSelf.database.child("\(otherUserSafeEmail)/conversation").observeSingleEvent(of: .value, with: { snapshot in
                             
                             let updatedValue: [String: Any] = [

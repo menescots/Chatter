@@ -57,7 +57,6 @@ class ChatViewController: MessagesViewController {
                 }
 
                 self?.messages = messages
-                print(messages)
                 DispatchQueue.main.async {
                     self?.messagesCollectionView.reloadDataAndKeepOffset()
 
@@ -78,8 +77,6 @@ class ChatViewController: MessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.tintColor = UIColor(named: "textColor")
         messagesCollectionView.backgroundColor = UIColor(named: "backgroundColor")
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
@@ -88,6 +85,7 @@ class ChatViewController: MessagesViewController {
         messageInputBar.delegate = self
         setupInputButton()
     }
+    
     private func setupInputButton() {
         let button = InputBarButtonItem()
         button.setSize(CGSize(width: 35, height: 35), animated: false)
@@ -110,9 +108,6 @@ class ChatViewController: MessagesViewController {
         }))
         actionSheet.addAction(UIAlertAction(title: "Location", style: .default, handler: { [weak self] _ in
             self?.presentLocationPicker()
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Audio", style: .default, handler: { _ in
-            
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
@@ -211,6 +206,7 @@ class ChatViewController: MessagesViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         messageInputBar.inputTextView.becomeFirstResponder()
+        messageInputBar.backgroundView.backgroundColor = UIColor(named: "backgroundColor")
         if let conversationId = conversationId{
             listenForMessages(id: conversationId, shouldScrollToBottom: true)
         }
@@ -269,7 +265,6 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         let currentUserSafeEmail = DatabaseManager.safeEmail(emailAdress: currentUserEmail)
         let dateString = Self.dateFormatter.string(from: Date())
         let newIdentifier = "\(otherUserEmail) \(currentUserSafeEmail) \(dateString)"
-        print("message id: \(newIdentifier)")
         return newIdentifier
     }
     

@@ -113,10 +113,8 @@ class LoginViewController: UIViewController {
             guard let strongSelf = self else {
                 return
             }
-
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
         })
-
         
         self.hideKeyboardWhenTappedAround()
         NotificationCenter.default.addObserver(self,
@@ -261,12 +259,12 @@ class LoginViewController: UIViewController {
             }
             
             guard let result = authResult, error == nil else {
-               print("failed to log in with email: \(email)")
+                self?.allertUserLoginError()
+                print("failed to log in with email: \(email)")
                 return
             }
             
             let user = result.user
-            
             let currentUserSafeEmail = DatabaseManager.safeEmail(emailAdress: email)
             
             DatabaseManager.shared.getDataFor(path: currentUserSafeEmail, completion: { result in
@@ -280,8 +278,8 @@ class LoginViewController: UIViewController {
                     UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
                     
                     NotificationCenter.default.post(name: .didLogInNotification, object: nil)
-                    print("in case success \(UserDefaults.standard.value(forKey: "name"))")
                 case .failure(let error):
+                    self?.alertFirebaseLogin()
                     print("failed to read data with error: \(error)")
                 }
             })
@@ -294,7 +292,15 @@ class LoginViewController: UIViewController {
         let vc = RegisterViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+    func alertFirebaseLogin(){
+        let alert = UIAlertController(title: "Failed to log In",
+                                      message: "Please double-check and try again",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss",
+                                      style: .cancel))
+        
+        present(alert, animated: true)
+    }
     func allertUserLoginError() {
         let alert = UIAlertController(title: "Incorrect email or password",
                                       message: "Please double-check and try again",
@@ -399,12 +405,14 @@ extension LoginViewController: LoginButtonDelegate {
                 guard let strongSelf = self else { return }
                 
                 guard authResult != nil, error == nil else {
+                    self?.alertFirebaseLogin()
                     if let error = error {
                         print("mfa may be neded \(error)")
                     }
                     return
                 }
                 print("successfully log in with facebook")
+                NotificationCenter.default.post(name: .didLogInNotification, object: nil)
                 strongSelf.navigationController?.dismiss(animated: true, completion: nil)
             })
         })

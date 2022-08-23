@@ -9,6 +9,7 @@ import UIKit
 import FBSDKLoginKit
 import SDWebImage
 import SwiftUI
+import RealmSwift
 
 final class ProfileViewController: UIViewController {
     private var loginObserver: NSObjectProtocol?
@@ -64,6 +65,9 @@ final class ProfileViewController: UIViewController {
         view.addSubview(nameLabel)
         view.addSubview(emailNameLabel)
         view.addSubview(logOutButton)
+        logOutButton.addTarget(self,
+                               action: #selector(logOutUser),
+                               for: .touchUpInside)
     }
     
     override func viewDidLayoutSubviews() {
@@ -97,14 +101,14 @@ final class ProfileViewController: UIViewController {
         logOutButton.contentHorizontalAlignment = .center
     }
     
-    @IBAction func logOutButton(_ sender: Any) {
-        UserDefaults.standard.setValue(nil, forKey: "email")
-        UserDefaults.standard.setValue(nil, forKey: "name")
-        UserDefaults.standard.setValue(nil, forKey: "profile_picture_url")
-        logOutUser()
+    @objc func logOutUser() {
+        UserDefaults.standard.removeObject(forKey: "email")
+        UserDefaults.standard.removeObject(forKey: "name")
+        UserDefaults.standard.removeObject(forKey: "profile_picture_url")
+        logOutUserSheet()
     }
 
-   @objc func logOutUser() {
+    private func logOutUserSheet() {
         let actionSheet = UIAlertController(title: "Do you want to log out?",
                                       message: nil,
                                       preferredStyle: .actionSheet)
@@ -133,7 +137,6 @@ final class ProfileViewController: UIViewController {
         present(actionSheet, animated: true)
     }
     func getImageForProfile(){
-        print("poczontek zdjecnia")
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
             return
         }

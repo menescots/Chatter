@@ -309,7 +309,7 @@ class RegisterViewController: UIViewController {
                 
                 UserDefaults.standard.set(email, forKey: "email")
                 UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
-                
+                NotificationCenter.default.post(name: .didLogInNotification, object: nil)
                 let chatUser = ChatAppUser(firstName: firstName,
                                            lastName: lastName,
                                            emailAdress: email)
@@ -334,7 +334,6 @@ class RegisterViewController: UIViewController {
                         })
                     }
                 })
-                
                 strongSelf.navigationController?.dismiss(animated: true, completion: nil)
             })
             

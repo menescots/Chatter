@@ -35,6 +35,16 @@
 		7ED82F4728A4F9F1002F16E3 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED82F4628A4F9F1002F16E3 /* ProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7E9DB53128AE1B9D00CB515F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E8F6A28287703AE0025F3D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7E8F6A2F287703AE0025F3D8;
+			remoteInfo = Messenger;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		31BBDDB7F1841FCEAD590AFD /* Pods-Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.debug.xcconfig"; path = "Target Support Files/Pods-Messenger/Pods-Messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		7E075C02289BF5F800CBBC57 /* TabBarVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVCViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +65,7 @@
 		7E8F6A51287708F70025F3D8 /* PhotoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerViewController.swift; sourceTree = "<group>"; };
 		7E8F6A5528770A6B0025F3D8 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		7E8F6A5728770A870025F3D8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		7E9DB52D28AE1B9B00CB515F /* MessengerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MessengerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EA2D13A287C24E2002D4A37 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7EA2D13C287C41C2002D4A37 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		7EAA7A40288E8FC7005AD831 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
@@ -74,6 +85,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				725531016885899745BE80BB /* Pods_Messenger.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7E9DB52A28AE1B9B00CB515F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				7E8F6A30287703AE0025F3D8 /* Messenger.app */,
+				7E9DB52D28AE1B9B00CB515F /* MessengerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -226,6 +245,24 @@
 			productReference = 7E8F6A30287703AE0025F3D8 /* Messenger.app */;
 			productType = "com.apple.product-type.application";
 		};
+		7E9DB52C28AE1B9B00CB515F /* MessengerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E9DB53528AE1B9D00CB515F /* Build configuration list for PBXNativeTarget "MessengerTests" */;
+			buildPhases = (
+				7E9DB52928AE1B9B00CB515F /* Sources */,
+				7E9DB52A28AE1B9B00CB515F /* Frameworks */,
+				7E9DB52B28AE1B9B00CB515F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7E9DB53228AE1B9D00CB515F /* PBXTargetDependency */,
+			);
+			name = MessengerTests;
+			productName = MessengerTests;
+			productReference = 7E9DB52D28AE1B9B00CB515F /* MessengerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -238,6 +275,10 @@
 				TargetAttributes = {
 					7E8F6A2F287703AE0025F3D8 = {
 						CreatedOnToolsVersion = 13.4.1;
+					};
+					7E9DB52C28AE1B9B00CB515F = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = 7E8F6A2F287703AE0025F3D8;
 					};
 				};
 			};
@@ -255,6 +296,7 @@
 			projectRoot = "";
 			targets = (
 				7E8F6A2F287703AE0025F3D8 /* Messenger */,
+				7E9DB52C28AE1B9B00CB515F /* MessengerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -268,6 +310,13 @@
 				7EA2D13B287C24E2002D4A37 /* GoogleService-Info.plist in Resources */,
 				7E8F6A3D287703B60025F3D8 /* Assets.xcassets in Resources */,
 				7E8F6A3B287703AF0025F3D8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7E9DB52B28AE1B9B00CB515F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,7 +393,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7E9DB52928AE1B9B00CB515F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7E9DB53228AE1B9D00CB515F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7E8F6A2F287703AE0025F3D8 /* Messenger */;
+			targetProxy = 7E9DB53128AE1B9D00CB515F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		7E8F6A39287703AF0025F3D8 /* Main.storyboard */ = {
@@ -554,6 +618,42 @@
 			};
 			name = Release;
 		};
+		7E9DB53328AE1B9D00CB515F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WD66NF7UM5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MenesAgata.MessengerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Messenger.app/Messenger";
+			};
+			name = Debug;
+		};
+		7E9DB53428AE1B9D00CB515F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WD66NF7UM5;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MenesAgata.MessengerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Messenger.app/Messenger";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -571,6 +671,15 @@
 			buildConfigurations = (
 				7E8F6A45287703B60025F3D8 /* Debug */,
 				7E8F6A46287703B60025F3D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7E9DB53528AE1B9D00CB515F /* Build configuration list for PBXNativeTarget "MessengerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E9DB53328AE1B9D00CB515F /* Debug */,
+				7E9DB53428AE1B9D00CB515F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

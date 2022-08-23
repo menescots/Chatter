@@ -43,7 +43,6 @@ final class NewConversationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.tintColor = UIColor(named: "textColor")
         view.addSubview(noResultLabel)
         view.addSubview(resultsTableView)
         resultsTableView.delegate = self
