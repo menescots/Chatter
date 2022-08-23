@@ -20,8 +20,12 @@ Chatting
 - Deleting Conversations
 - User Profile
 
+## Requirements
+1. [Xcode](https://developer.apple.com/xcode/)
+2. [CocoaPods](http://cocoapods.org/)
+
 ## Set Up
-Clone a repository
+Clone GitHub repository
 ```
 git clone git@github.com:menescots/Messenger.git
 ```
@@ -33,3 +37,9 @@ Open a project
 ```
 open Messenger.xcworkspace
 ```
+Build the project (⌘+B) and check for any errors. <br>
+Run the app (⌘+R) and test it.
+
+## License
+
+Chatter is under MIT license. See the [LICENSE](LICENSE) file for more info.
