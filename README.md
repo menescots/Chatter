@@ -1,17 +1,30 @@
-# Real time chat app
-Simple chat app written in Swift 5 using Firebase <br><br>
-Creating a user             |  Login with facebook
-:-----------------------:|:-----------------------:
-![creatingUser](./docs/creatingUser.gif)  | ![loginWithFb](./docs/loginWithFb.gif) <br><br>
+<p align="center">
+  <img width="150" height="150" src="./docs/appstore-2.png"> <br>
+  <h1 align='center' margin-top=0px paddint-top=0px > Chatter </h1>
+</p>
 
-Chatting             
-:-------------------------:
-![chatting](./docs/chatting.gif)
+<p align="center">
+Simple real time chat app written in Swift 5 using Firebase
+</p>
+<br>
+<p align="center">
+<h2 align="center"> Real time conversation example </h2>
+</p>
+<p align="center">
+<img src="./docs/chatting.gif" width="550" height="550" />
+</p>
+<br>
+<p align="center">
+<h2 align="center"> Creating a user with Firebase and Facebook Authentication </h2>
+</p>
+<p align="center">
+<img src="./docs/creatingUser.gif" width="275" height="530" />
+<img src="./docs/loginWithFb.gif" width="275" height="530" /> 
+</p>
 
 ## Features
 - Facebook  Log In
-- Google Sign In
-- Email/Pass Registration / Log In
+- Authorization 
 - Photo Messages
 - Video Messages
 - Real Time Conversations
@@ -20,9 +33,13 @@ Chatting
 - Deleting Conversations
 - User Profile
 
+<br>
+
 ## Requirements
 1. [Xcode](https://developer.apple.com/xcode/)
 2. [CocoaPods](http://cocoapods.org/)
+
+<br>
 
 ## Set Up
 Clone GitHub repository
